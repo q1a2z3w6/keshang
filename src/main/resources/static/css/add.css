@@ -1,0 +1,41 @@
+.listitem{
+    padding: 5px 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.layui-input, .layui-select, .layui-textarea{
+    height: 32px;
+}
+.listitem>div{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.listitem>.fl,.listitem>.fr{
+    width: 50%;
+}
+.threelist{
+    padding: 5px 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.listitem>div.fl{
+    padding-right: 45px;
+}
+.listitem>div.fr{
+    padding-left: 45px;
+}
+.threelist>div{
+    width: 30%;
+}
+.threelist .center{
+    margin-left: 5%;
+}
+.textcenter{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

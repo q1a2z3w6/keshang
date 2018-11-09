@@ -1,0 +1,138 @@
+.clearfix:after{  content: "";   display: block;   height: 0;   clear: both;  visibility: hidden;  }
+.clearfix {  zoom: 1;   }
+.fl{float: left;}.fr{float: right;}
+#nodata{
+    text-align: center;
+    margin-top: 20px;
+}
+.logo{
+	height: 55px;
+	line-height: 55px;
+	background-color: rgb(0,109,174);
+}
+.logo img{
+	width: 120px!important;
+	height: 45px;
+	margin-left: 20px;
+}
+.banner{
+	height: 55px;
+	line-height: 55px;
+	background-color: rgb(0,56,95);
+	text-align: center;
+	position: relative;
+}
+.banner .logo-icon{
+	width: 55px;
+	height: 55px;
+	position: absolute;
+	left: 10px;
+	z-index: 999;
+	border-radius: 50%;
+
+}
+.banner .layui-nav-item>a{
+	font-size: 20px;	
+	color: #fff;
+
+}
+.com-crumb{
+	height: 55px;
+	line-height: 55px;
+	background-color: rgb(0,109,174);
+	padding-left: 20px;
+}
+.com-crumb .com-crumb-span{
+	position: relative;
+	top: -4px;
+}
+.com-crumb>*{
+	font-size: 14px;
+}
+.com-crumb i{
+	font-size: 27px;
+    color: #029688;
+}
+.com-crumb .fg{
+	margin: 0 10px;
+    color: #999
+}
+.com-crumb  a{color:#edebeb!important;}
+.com-crumb  a cite{color:#edebeb!important;}
+
+
+.table_type1{
+
+	background: #fff;
+width: 1200px;
+margin: auto;
+max-width: 100%;
+	margin: auto;
+}
+.table_type1 table{
+    border: 1px solid #000;
+    border-right: none;
+    border-bottom: none;
+    margin: auto;
+}
+.table_type1 table td{
+border-right: 1px solid #000;
+padding: 10px;
+border-bottom: 1px solid #000
+}
+.table_type1  h2.h2tit{
+text-align: center;
+line-height: 50px;
+font-size: 25px;
+}
+.table_type1 .desc{
+    padding:3% 20px;
+}
+.table_type1 .desc .h3tit{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.table_type1 .desc .words{
+    line-height:2;
+}
+.table_type1 .desc .words p{
+  margin-bottom: 10px;
+}
+
+.table_type1 .desc .words p:last-child{
+font-size: 20px;
+font-weight: bold;
+}
+.table_type1 input.words{
+	border: none;
+	border-bottom: 1px solid #000;
+	width: 100px;
+}
+
+
+.sendwords{
+	border: none;
+	border-bottom: 1px solid #ccc;
+	margin-top: 20px;
+	font-size: 20px;
+	width: 100%
+}
+
+
+.general3{
+	position: relative;
+	cursor: pointer;
+}
+.general3 .slide{
+display: none;
+
+
+	position: absolute;left: 90px;
+	top: 0px;/* text-align: center; */
+	width: 270px;line-height: 30px;text-indent: 10px;background: #fff;border-radius: 10px;}
+.general3 .slide a{
+display: block;
+}
+
+.cot{display: block;width: 100px;text-align: center;line-height: 35px;font-size: 15px;border-radius: 2px;background:#0099b7;color: #fff !important;margin: auto;margin-left: 66%;margin-top: 3%;}

@@ -1,0 +1,48 @@
+body{
+    background: #1b93b6;
+}
+.wrapper{
+    margin: 0 20px;
+    background: #fff;
+}
+.btn{
+    padding-top: 15px;
+    text-align: left;
+    padding-left: 20px;
+}
+.record_data table th{
+    text-align: left;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.record_data table td{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.record_data table tbody tr:nth-child(2n - 1){
+    background-color: #eefbf8;
+}
+.record_data table td span{
+    color: #5bbad9;
+    cursor: pointer;
+}
+.record_data{
+    font-size: 14px;
+    background-color: white;
+    margin-top: 20px;
+    overflow: hidden;
+    border:1px solid #e4e4e4;
+    border-left: 0;
+    border-right:0;
+}
+#pages{
+    text-align: center;
+    margin-top: 20px;
+}
+.condition span{
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+}
