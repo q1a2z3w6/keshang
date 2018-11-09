@@ -1,6 +1,4 @@
-package com.lhl.keshang.test.pojo;
-
-import lombok.Data;
+package com.lhl.keshang.login.pojo;
 
 /**
  * 应用模块名称<p>
@@ -9,12 +7,7 @@ import lombok.Data;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/9 8:52
+ * @since 2018/11/9 14:41
  */
-@Data
-public class Test {
-
-    private Integer id;
-    private String name;
-
+public class User {
 }
