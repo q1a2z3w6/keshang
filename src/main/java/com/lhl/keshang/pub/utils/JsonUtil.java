@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * 应用模块名称<p>
+ * json工具类
  * 代码描述<p>
  * Copyright: Copyright (C) 2018 XXX, Inc. All rights reserved. <p>
  * Company: XXX科技有限公司<p>
@@ -29,6 +29,11 @@ public class JsonUtil {
     }
 
 
+    /**
+     * 将实体类转化为json字符串
+     * @param obj 要转换的实例
+     * @return
+     */
     public static String objectToJsonString(Object obj) {
 
         String string = null;
@@ -41,6 +46,12 @@ public class JsonUtil {
 
     }
 
+    /**
+     * 将字符串转换为指定的类的实例
+     * @param s  json格式字符串
+     * @param cl 类型
+     * @return
+     */
     public static Object JsonStringToObject(String s,Class<?> cl) {
 
         Object object = null;

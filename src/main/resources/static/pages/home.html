@@ -118,6 +118,8 @@
                 count: 100 //数据总数，从服务端得到
             });
         });
+
+
         // 保存提交添加供应商信息
         function getmsg(type) {
             var msg = localStorage.getItem('datalist');
@@ -401,13 +403,15 @@
 
                 '        </div>' +
                 '        <div class="textcenter">' +
-                '            <button class="layui-btn" type="button" onclick="getmsg(' + idx + ')">保存</button>' +
+                '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg(' + idx + ')">保存</button>' +
                 '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
                 '        </div>' +
                 '    </form></div>';
             $('.canclemodel').click(function() {
                 layer.closeAll()
             });
+
+
             var datalist = JSON.parse(localStorage.getItem('datalist'));
             var nowdata = datalist[idx];
             layer.open({
@@ -451,7 +455,29 @@
                     $('#phone').val(nowdata.phone); // 联系固话
                     $('#tel').val(nowdata.tel); // 手机
                     $('#email').val(nowdata.email); // 邮箱
+                    //文件上传
+                    layui.use('upload', function() {
+                        var $ = layui.jquery
+                            , upload = layui.upload;
 
+                        //选完文件后不自动上传
+                        upload.render({
+                            elem: '#upfile1'
+                            ,url: '/uploadHome'
+                            ,data:{
+                                "path":"test/test1"
+                            }
+                            ,auto: false
+                            ,multiple: true,
+                            accept: 'file'
+                            ,bindAction: '#startupfile'
+                            ,done: function(res){
+                                // alert(res);
+                                console.log(res)
+                            }
+                        });
+
+                    });
                 }
             });
 
@@ -1270,7 +1296,7 @@
 
                 '        </div>' +
                 '        <div class="textcenter">' +
-                '            <button class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
+                '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
                 '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
                 '        </div>' +
                 '    </form></div>';
@@ -1285,10 +1311,28 @@
                 success: function(layero, index) {
                     $.fn.zTree.init($("#treeDemo"), setting, zyzz);
                     $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
-                    layui.use(['form', 'layedit', 'laydate'], function() {
+
+                    layui.use(['form', 'layedit', 'laydate','upload'], function() {
                         var laydate = layui.laydate;
                         laydate.render({
                             elem: '#zyzdate'
+                        });
+                        var $ = layui.jquery
+                            , upload = layui.upload;
+
+                        //选完文件后不自动上传
+                        upload.render({
+                            elem: '#upfile1'
+                            ,url: 'uploadHome'
+                            ,data:{"path":"test/test1"}
+                            ,auto: false
+                            ,multiple: true,
+                            accept: 'file'
+                            ,bindAction: '#startupfile'
+                            ,done: function(res){
+                                // alert(res);
+                                console.log(res)
+                            }
                         });
                     })
                 }

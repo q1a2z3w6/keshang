@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 应用模块名称<p>
+ * 用来创建返回的Result实例
  * 代码描述<p>
  * Copyright: Copyright (C) 2018 XXX, Inc. All rights reserved. <p>
  * Company: XXX科技有限公司<p>
@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class ResultUtil {
 
+    /**
+     * 创建成功的实例
+     * @param data 要返回的数据
+     * @return
+     */
     public static Result success(Object data){
 
         Result r = new Result();
@@ -36,6 +41,12 @@ public class ResultUtil {
 
     }
 
+    /**
+     * 创建失败的实例
+     * @param code 失败代码
+     * @param msg  失败信息
+     * @return
+     */
     public static Result error(Integer code,String msg){
 
         Result result = new Result();

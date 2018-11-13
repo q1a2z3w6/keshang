@@ -1,6 +1,4 @@
-package com.lhl.keshang.customer.pojo;
-
-import org.springframework.web.bind.annotation.PostMapping;
+package com.lhl.keshang.filemanager;
 
 /**
  * 应用模块名称<p>
@@ -9,11 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/12 17:46
+ * @since 2018/11/13 17:09
  */
-public class CustomerInfo {
-
-
-
-
+public class ad {
 }
