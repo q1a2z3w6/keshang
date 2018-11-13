@@ -1,4 +1,4 @@
-package com.lhl.keshang.login.pojo;
+package com.lhl.keshang.customer.pojo;
 
 /**
  * 应用模块名称<p>
@@ -7,7 +7,7 @@ package com.lhl.keshang.login.pojo;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/9 14:41
+ * @since 2018/11/12 17:45
  */
-public class User {
+public class Customer {
 }
