@@ -1,6 +1,8 @@
 package com.lhl.keshang.filemanager.controller;
 
 import com.lhl.keshang.filemanager.pojo.FileVo;
+import com.lhl.keshang.pub.utils.JsonUtil;
+import com.lhl.keshang.pub.utils.ResultUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +25,9 @@ public class FileController {
     @PostMapping("uploadHome")
     public String uploadHome(HttpServletRequest req){
 
+        System.out.println("dfgh");
 
-
-        return null;
+        return JsonUtil.objectToJsonString(ResultUtil.success(""));
 
     }
 

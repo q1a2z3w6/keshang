@@ -1,4 +1,6 @@
-package com.lhl.keshang.filemanager;
+package com.lhl.keshang.customer.service;
+
+import com.lhl.keshang.pub.pojo.Result;
 
 /**
  * 应用模块名称<p>
@@ -7,7 +9,8 @@ package com.lhl.keshang.filemanager;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/13 17:09
+ * @since 2018/11/14 9:58
  */
-public class ad {
+public interface TypeService {
+    Result typeList();
 }

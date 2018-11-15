@@ -1,10 +1,6 @@
 package com.lhl.keshang.customer.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * 应用模块名称<p>
@@ -13,15 +9,12 @@ import java.util.List;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/12 17:47
+ * @since 2018/11/14 14:26
  */
 @Data
-public class Type {
+public class Nature {
 
     private Integer id;
     private String name;
-    @JsonProperty("pId")
-//    @JsonIgnore
-    private Integer pId;
 
 }

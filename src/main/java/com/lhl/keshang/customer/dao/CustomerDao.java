@@ -1,9 +1,7 @@
-package com.lhl.keshang.customer.mapper;
+package com.lhl.keshang.customer.dao;
 
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,14 +12,10 @@ import java.util.List;
  * Company: XXX科技有限公司<p>
  *
  * @author 刘浩磊
- * @since 2018/11/12 17:46
+ * @since 2018/11/14 17:23
  */
-@Mapper
-@Repository
-public interface CustomerMapper {
-
-    List<Customer> findCustomerById(Customer customer);
-    void addNewCustomer(Customer customer);
+public interface CustomerDao {
+    void saveCustomer(Customer customer);
 
     Integer customerCount();
 

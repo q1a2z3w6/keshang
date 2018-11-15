@@ -1,10 +1,7 @@
 package com.lhl.keshang.customer.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * 应用模块名称<p>
@@ -16,7 +13,7 @@ import java.util.List;
  * @since 2018/11/12 17:47
  */
 @Data
-public class Type {
+public class Diode {
 
     private Integer id;
     private String name;

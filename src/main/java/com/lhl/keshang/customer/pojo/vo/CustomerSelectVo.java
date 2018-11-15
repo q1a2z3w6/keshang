@@ -1,6 +1,7 @@
-package com.lhl.keshang.customer.pojo;
+package com.lhl.keshang.customer.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lhl.keshang.pub.pojo.PageBean;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ import java.util.Date;
  * @since 2018/11/12 17:45
  */
 @Data
-public class Customer {
+public class CustomerSelectVo extends PageBean {
 
 
     /**
@@ -53,64 +54,35 @@ public class Customer {
      */
 
     private String id;
-    @NotBlank(message = "{customer.field.null}")
     private String name;
-    @NotNull(message = "{customer.field.null}")
     private Double money;
-    @NotBlank(message = "{customer.field.null}")
     private String legal;
-    @NotBlank(message = "{customer.field.null}")
     private String nature;
-    @NotBlank(message = "{customer.field.null}")
     private String address;
-    @NotBlank(message = "{customer.field.null}")
     private String province;
-    @NotBlank(message = "{customer.field.null}")
     private String city;
-    @NotBlank(message = "{customer.field.null}")
     private String url;
-    @NotBlank(message = "{customer.field.null}")
     private String nstype;
-    @NotBlank(message = "{customer.field.null}")
     private String type;
-    @NotNull(message = "{customer.field.null}")
     @JsonFormat(pattern = "yyyy-MM-dd",locale = "zh",timezone = "GMT+8")
     private Date zyzdate;
-    @NotBlank(message = "{customer.field.null}")
     private String zzh;
-    @NotBlank(message = "{customer.field.null}")
     private String diode;
-    @NotBlank(message = "{customer.field.null}")
     private String yyzz;
-    @NotBlank(message = "{customer.field.null}")
     private String sales;
-    @NotBlank(message = "{customer.field.null}")
     private String brand;
-    @NotBlank(message = "{customer.field.null}")
     private String range;
-    @NotBlank(message = "{customer.field.null}")
     private String general;
-    @NotBlank(message = "{customer.field.null}")
     private String branch;
-    @NotBlank(message = "{customer.field.null}")
     private String business;
-    @NotBlank(message = "{customer.field.null}")
     private String equipment;
-    @NotBlank(message = "{customer.field.null}")
     private String apc;
-    @NotBlank(message = "{customer.field.null}")
     private String after;
-    @NotBlank(message = "{customer.field.null}")
     private String wxie;
-    @NotBlank(message = "{customer.field.null}")
     private String ywyj;
-    @NotBlank(message = "{customer.field.null}")
     private String linkman;
-    @NotBlank(message = "{customer.field.null}")
     private String phone;
-    @NotBlank(message = "{customer.field.null}")
     private String tel;
-    @NotBlank(message = "{customer.field.null}")
     private String email;
     private Long version;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")

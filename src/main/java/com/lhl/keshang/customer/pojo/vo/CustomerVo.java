@@ -1,4 +1,4 @@
-package com.lhl.keshang.customer.pojo;
+package com.lhl.keshang.customer.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.util.Date;
  * @since 2018/11/12 17:45
  */
 @Data
-public class Customer {
+public class CustomerVo {
 
 
     /**

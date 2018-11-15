@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhl.keshang.customer.mapper.CustomerMapper">
+
+    <select id="findCustomerById" resultType="customer" parameterType="customer">
+
+        SELECT * FROM BD_CUSTOMER WHERE ID = #{id}
+
+    </select>
+
+    <select id="customerCount" resultType="java.lang.Integer">
+
+        SELECT COUNT(ID) FROM BD_CUSTOMER
+
+    </select>
+
+    <select id="findCustomerByVo" parameterType="customerSelectVo" resultType="customer">
+
+        select * from BD_CUSTOMER
+        <where>
+            <if test="id!=null">
+                ID=#{id},
+            </if>
+            <if test="name!=null">
+                NAME=#{name},
+            </if>
+            <if test="money!=null">
+                MONEY=#{money},
+            </if>
+            <if test="legal!=null">
+                LEGAL=#{legal},
+            </if>
+            <if test="nature!=null">
+                NATURE=#{nature},
+            </if>
+            <if test="address!=null">
+                ADDRESS=#{address},
+            </if>
+            <if test="province!=null">
+                PROVINCE=#{province},
+            </if>
+            <if test="city!=null">
+                CITY=#{city},
+            </if>
+            <if test="url!=null">
+                URL=#{url},
+            </if>
+            <if test="nstype!=null">
+                NSTYPE=#{nstype},
+            </if>
+            <if test="type!=null">
+                TYPE=#{type},
+            </if>
+            <if test="zyzdate!=null">
+                ZYZDATE=#{zyzdate},
+            </if>
+            <if test="zzh!=null">
+                ZZH=#{zzh},
+            </if>
+            <if test="diode!=null">
+                DIODE=#{diode},
+            </if>
+            <if test="yyzz!=null">
+                YYZZ=#{yyzz},
+            </if>
+            <if test="sales!=null">
+                SALES=#{sales},
+            </if>
+            <if test="brand!=null">
+                BRAND=#{brand},
+            </if>
+            <if test="range!=null">
+                RANGE=#{range},
+            </if>
+            <if test="general!=null">
+                GENERAL=#{general},
+            </if>
+            <if test="branch!=null">
+                BRANCH=#{branch},
+            </if>
+            <if test="business!=null">
+                BUSINESS=#{business},
+            </if>
+            <if test="equipment!=null">
+                EQUIPMENT=#{equipment},
+            </if>
+            <if test="apc!=null">
+                APC=#{apc},
+            </if>
+            <if test="after!=null">
+                AFTER=#{after},
+            </if>
+            <if test="wxie!=null">
+                WXIE=#{wxie},
+            </if>
+            <if test="ywyj!=null">
+                YWYJ=#{ywyj},
+            </if>
+            <if test="linkman!=null">
+                LINKMAN=#{linkman},
+            </if>
+            <if test="phone!=null">
+                PHONE=#{phone},
+            </if>
+            <if test="tel!=null">
+                TEL=#{tel},
+            </if>
+            <if test="email!=null">
+                EMAIL=#{email},
+            </if>
+            <if test="createDate!=null">
+                CREATEDATE=#{createDate},
+            </if>
+            <if test="updateDate!=null">
+                UPDATEDATE=#{updateDate},
+            </if>
+        </where>
+        order by updateDate
+        <if test="index!=null">
+
+        </if>
+
+    </select>
+
+    <insert id="addNewCustomer" parameterType="customer">
+        
+        INSERT INTO BD_CUSTOMER
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id!=null">
+                ID,
+            </if>
+            <if test="name!=null">
+                NAME,
+            </if>
+            <if test="money!=null">
+                MONEY,
+            </if>
+            <if test="legal!=null">
+                LEGAL,
+            </if>
+            <if test="nature!=null">
+                NATURE,
+            </if>
+            <if test="address!=null">
+                ADDRESS,
+            </if>
+            <if test="province!=null">
+                PROVINCE,
+            </if>
+            <if test="city!=null">
+                CITY,
+            </if>
+            <if test="url!=null">
+                URL,
+            </if>
+            <if test="nstype!=null">
+                NSTYPE,
+            </if>
+            <if test="type!=null">
+                TYPE,
+            </if>
+            <if test="zyzdate!=null">
+                ZYZDATE,
+            </if>
+            <if test="zzh!=null">
+                ZZH,
+            </if>
+            <if test="diode!=null">
+                DIODE,
+            </if>
+            <if test="yyzz!=null">
+                YYZZ,
+            </if>
+            <if test="sales!=null">
+                SALES,
+            </if>
+            <if test="brand!=null">
+                BRAND,
+            </if>
+            <if test="range!=null">
+                RANGE,
+            </if>
+            <if test="general!=null">
+                GENERAL,
+            </if>
+            <if test="branch!=null">
+                BRANCH,
+            </if>
+            <if test="business!=null">
+                BUSINESS,
+            </if>
+            <if test="equipment!=null">
+                EQUIPMENT,
+            </if>
+            <if test="apc!=null">
+                APC,
+            </if>
+            <if test="after!=null">
+                AFTER,
+            </if>
+            <if test="wxie!=null">
+                WXIE,
+            </if>
+            <if test="ywyj!=null">
+                YWYJ,
+            </if>
+            <if test="linkman!=null">
+                LINKMAN,
+            </if>
+            <if test="phone!=null">
+                PHONE,
+            </if>
+            <if test="tel!=null">
+                TEL,
+            </if>
+            <if test="email!=null">
+                EMAIL,
+            </if>
+            <if test="createDate!=null">
+                CREATEDATE,
+            </if>
+            <if test="updateDate!=null">
+                UPDATEDATE,
+            </if>
+        </trim>
+        <trim prefix="values(" suffixOverrides="," suffix=")">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="money!=null">
+                #{money},
+            </if>
+            <if test="legal!=null">
+                #{legal},
+            </if>
+            <if test="nature!=null">
+                #{nature},
+            </if>
+            <if test="address!=null">
+                #{address},
+            </if>
+            <if test="province!=null">
+                #{province},
+            </if>
+            <if test="city!=null">
+                #{city},
+            </if>
+            <if test="url!=null">
+                #{url},
+            </if>
+            <if test="nstype!=null">
+                #{nstype},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+            <if test="zyzdate!=null">
+                to_date(to_char(#{zyzdate},'yyyy-mm-dd'),'yyyy-mm-dd'),
+            </if>
+            <if test="zzh!=null">
+                #{zzh},
+            </if>
+            <if test="diode!=null">
+                #{diode},
+            </if>
+            <if test="yyzz!=null">
+                #{yyzz},
+            </if>
+            <if test="sales!=null">
+                #{sales},
+            </if>
+            <if test="brand!=null">
+                #{brand},
+            </if>
+            <if test="range!=null">
+                #{range},
+            </if>
+            <if test="general!=null">
+                #{general},
+            </if>
+            <if test="branch!=null">
+                #{branch},
+            </if>
+            <if test="business!=null">
+                #{business},
+            </if>
+            <if test="equipment!=null">
+                #{equipment},
+            </if>
+            <if test="apc!=null">
+                #{apc},
+            </if>
+            <if test="after!=null">
+                #{after},
+            </if>
+            <if test="wxie!=null">
+                #{wxie},
+            </if>
+            <if test="ywyj!=null">
+                #{ywyj},
+            </if>
+            <if test="linkman!=null">
+                #{linkman},
+            </if>
+            <if test="phone!=null">
+                #{phone},
+            </if>
+            <if test="tel!=null">
+                #{tel},
+            </if>
+            <if test="email!=null">
+                #{email},
+            </if>
+            <if test="createDate!=null">
+                to_date(to_char(#{createDate},'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="updateDate!=null">
+                to_date(to_char(#{updateDate},'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+        </trim>
+        
+    </insert>
+
+</mapper>
