@@ -2,10 +2,13 @@ package com.lhl.keshang.customer.controller;
 
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.customer.pojo.vo.CustomerUpdateVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerVo;
 import com.lhl.keshang.customer.service.CustomerService;
+import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import com.lhl.keshang.pub.pojo.PageBean;
 import com.lhl.keshang.pub.pojo.Result;
+import com.lhl.keshang.pub.utils.FileUtils;
 import com.lhl.keshang.pub.utils.JsonUtil;
 import com.lhl.keshang.pub.utils.ResultUtil;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 应用模块名称<p>
@@ -37,6 +43,8 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public String saveCustomer(@RequestBody @Valid CustomerVo customerVo,BindingResult bindingResult){
 
+        System.out.println(JsonUtil.objectToJsonString(customerVo));
+
         if(bindingResult.hasFieldErrors()){
             return JsonUtil.objectToJsonString(ResultUtil.error(500,bindingResult.getFieldError().getField()+":"+bindingResult.getFieldError().getDefaultMessage()));
         }
@@ -47,20 +55,38 @@ public class CustomerController {
         return JsonUtil.objectToJsonString(result);
 
     }
-    @GetMapping("/customerCount")
-    public String customerCount(){
+    @PostMapping("/customerCount")
+    public String customerCount(@RequestBody CustomerSelectVo customerSelectVo){
 
-        Result result = customerService.customerCount();
+        Result result = customerService.customerCount(customerSelectVo);
         return JsonUtil.objectToJsonString(result);
 
     }
+    @PostMapping("/downExcel")
+    public void downExcel(@RequestBody CustomerSelectVo customerSelectVo, HttpServletRequest req, HttpServletResponse resp){
 
-    @GetMapping("/customerPages")
-    public String customerPages(@RequestBody @Valid CustomerSelectVo customerSelectVo,BindingResult bindingResult){
+        Result result = customerService.downExcelByVo(customerSelectVo,req,resp);
+
+    }
+
+
+    @PostMapping("/updateCustomer")
+    public String updateCustomer(@RequestBody @Valid CustomerUpdateVo customerUpdateVo,BindingResult bindingResult){
 
         if(bindingResult.hasFieldErrors()){
             return JsonUtil.objectToJsonString(ResultUtil.error(500,bindingResult.getFieldError().getField()+":"+bindingResult.getFieldError().getDefaultMessage()));
         }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerUpdateVo,customer);
+        Result result = customerService.updateCustomer(customer);
+
+        return JsonUtil.objectToJsonString(result);
+
+    }
+
+    @PostMapping("/customerPages")
+    public String customerPages(@RequestBody CustomerSelectVo customerSelectVo){
+
 
         Result result = customerService.customerPages(customerSelectVo);
         return JsonUtil.objectToJsonString(result);

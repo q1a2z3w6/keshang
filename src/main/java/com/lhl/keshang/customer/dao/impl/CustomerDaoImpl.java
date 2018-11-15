@@ -4,6 +4,7 @@ import com.lhl.keshang.customer.dao.CustomerDao;
 import com.lhl.keshang.customer.mapper.CustomerMapper;
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,30 @@ public class CustomerDaoImpl implements CustomerDao {
     private CustomerMapper customerMapper;
 
     @Override
+    public List<CustomerExcelVo> findCustomerByVoNoPage(Customer customer) {
+
+        List<CustomerExcelVo> customers = customerMapper.findCustomerByVoNoPage(customer);
+
+        return customers;
+
+    }
+
+    @Override
+    public Customer findCustomerByIdAndVersion(Customer customer) {
+
+        customer = customerMapper.findCustomerByIdAndVersion(customer);
+
+        return customer;
+    }
+
+    @Override
+    public void updateCustomerById(Customer customer) {
+
+        customerMapper.updateCustomerById(customer);
+
+    }
+
+    @Override
     public List<Customer> findCustomerByVo(CustomerSelectVo customerSelectVo) {
 
         List<Customer> customers = customerMapper.findCustomerByVo(customerSelectVo);
@@ -33,9 +58,9 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public Integer customerCount() {
+    public Integer customerCount(Customer customer) {
 
-        Integer i = customerMapper.customerCount();
+        Integer i = customerMapper.customerCount(customer);
 
         return i;
     }

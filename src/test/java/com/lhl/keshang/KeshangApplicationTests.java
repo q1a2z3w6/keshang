@@ -3,6 +3,7 @@ package com.lhl.keshang;
 import com.lhl.keshang.customer.mapper.CustomerMapper;
 import com.lhl.keshang.customer.mapper.TypeMapper;
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.pub.utils.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,15 +25,10 @@ public class KeshangApplicationTests {
     @Test
     public void contextLoads() {
 
-        Customer customer = new Customer();
-        for(int i=1;i<=100;i++){
-            customer.setId(UUID.randomUUID().toString());
-            customer.setCreateDate(new Date());
-            customer.setName(""+i);
-            customerMapper.addNewCustomer(customer);
-        }
-
-
+        CustomerSelectVo customerSelectVo = new CustomerSelectVo();
+        customerSelectVo.initParam();
+        List<Customer> customers = customerMapper.findCustomerByVo(customerSelectVo);
+        System.out.println(customers);
 
     }
 

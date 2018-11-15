@@ -4,6 +4,9 @@ import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.pub.pojo.Result;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 应用模块名称<p>
  * 代码描述<p>
@@ -16,7 +19,11 @@ import com.lhl.keshang.pub.pojo.Result;
 public interface CustomerService {
     Result saveCustomer(Customer customer);
 
-    Result customerCount();
+    Result customerCount(CustomerSelectVo customerSelectVo);
 
     Result customerPages(CustomerSelectVo customerSelectVo);
+
+    Result updateCustomer(Customer customer);
+
+    Result downExcelByVo(CustomerSelectVo customerSelectVo, HttpServletRequest req, HttpServletResponse resp);
 }

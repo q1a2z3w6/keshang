@@ -2,6 +2,7 @@ package com.lhl.keshang.customer.dao;
 
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 
 import java.util.List;
 
@@ -17,7 +18,13 @@ import java.util.List;
 public interface CustomerDao {
     void saveCustomer(Customer customer);
 
-    Integer customerCount();
+    Integer customerCount(Customer customer);
 
     List<Customer> findCustomerByVo(CustomerSelectVo customerSelectVo);
+
+    void updateCustomerById(Customer customer);
+
+    Customer findCustomerByIdAndVersion(Customer customer);
+
+    List<CustomerExcelVo> findCustomerByVoNoPage(Customer customer);
 }

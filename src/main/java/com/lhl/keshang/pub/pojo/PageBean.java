@@ -20,6 +20,7 @@ public class PageBean {
     private Integer dataCount;
     private Integer size;
     private Integer index;
+    private Integer end;
     private Integer pageNum;
 
     public void initParam(){
@@ -30,8 +31,9 @@ public class PageBean {
         if(pageNum==null||pageNum==0){
             pageNum = 1;
         }
-        pageCount = dataCount%size==0?dataCount/size:dataCount/size+1;
-        index = (pageNum-1)*size;
+//        pageCount = dataCount%size==0?dataCount/size:dataCount/size+1;
+        index = 1+(pageNum-1)*size;
+        end = index+size-1;
 
     }
 

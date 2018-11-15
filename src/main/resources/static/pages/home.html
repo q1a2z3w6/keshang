@@ -136,7 +136,8 @@
                 url:"/customerCount",
                 contentType:"application/json",
                 dataType:"json",
-                method:"get",
+                data:JSON.stringify({}),
+                method:"post",
                 async:false,
                 success:function(data){
 
@@ -151,7 +152,8 @@
                     //obj包含了当前分页的所有参数，比如：
                     console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
                     console.log(obj.limit); //得到每页显示的条数
-                    sendJsonData({size:obj.limit,pageNum:obj.curr},"/customerPages","post",function(data){
+                    sendJsonData(JSON.stringify({"size":obj.limit,"pageNum":obj.curr}),"/customerPages","post",function(data){
+                        localStorage.removeItem("datalist");
                         localStorage.setItem('datalist', JSON.stringify(data.data));
                         getdatas();
                     });
@@ -170,6 +172,8 @@
         function getmsg(type) {
             var msg = localStorage.getItem('datalist');
             var data = {
+                version:$("#version").val(),//记录版本信息
+                id: $('#id').val(),//客商id
                 name: $('#name').val(), // 供方名称
 				money: $('#money').val(), // 注册资金
                 legal: $('#legal').val(), // 法人
@@ -204,23 +208,25 @@
                 email: $('#email').val() // 邮箱
             };
             for (var i in data) {
-                if (data[i].trim().length == 0) {
-                    layer.msg('请添加完所有的信息');
-                    return
+                if(i!='version'&&i!='id'){
+                    if (data[i].trim().length == 0) {
+                        layer.msg('请添加完所有的信息');
+                        return
+                    }
                 }
             }
             if (type != undefined) {
-                sendJsonData(JSON.stringify(data),"/saveCustomer","post",function(d){
+                sendJsonData(JSON.stringify(data),"/updateCustomer","post",function(d){
 
                     if(d.code==200){
                         msg = JSON.parse(msg);
-                        msg[type] = data;
+                        msg[type] = d.data[0];
                         localStorage.setItem('datalist', JSON.stringify(msg));
                         layer.msg('修改成功');
                         getdatas();
                         layer.closeAll(); // 关闭layui的弹窗
                     }else{
-                        layer.msg('修改失败');
+                        layer.msg(d.msg);
                     }
 
                 });
@@ -241,7 +247,7 @@
                             getdatas();
                             layer.closeAll(); // 关闭layui的弹窗
                         }else{
-                            layer.msg('添加失败');
+                            layer.msg(d.msg);
                         }
 
                     });
@@ -257,7 +263,7 @@
                             getdatas();
                             layer.closeAll(); // 关闭layui的弹窗
                         }else{
-                            layer.msg('添加失败');
+                            layer.msg(d.msg);
                         }
 
                     });
@@ -278,6 +284,8 @@
             if (data == null || data.length == 0) {
                 $('#nodata').html('没有数据');
                 data = []
+            }else{
+                $('#nodata').html('');
             }
             var html = '';
             data.map(function(item, idx) {
@@ -490,7 +498,8 @@
                 '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg(' + idx + ')">保存</button>' +
                 '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
                 '        </div>' +
-                '       <input type="hidden" id="id"/>'
+                '       <input type="hidden" id="id"/>' +
+                '       <input type="hidden" id="version"/>' +
                 '    </form></div>';
             $('.canclemodel').click(function() {
                 layer.closeAll()
@@ -510,6 +519,7 @@
                 success: function() {
                     // $.fn.zTree.init($("#treeDemo"), setting, zyzz);
                     // $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
+                    $("#version").val(nowdata.version);
                     $('#id').val(nowdata.id); // 供方名称
                     $('#name').val(nowdata.name); // 供方名称
                     $('#money').val(nowdata.money); // 注册资金
@@ -1309,7 +1319,7 @@
 
                 '<div class="clearfix " style="padding: 5px 20px;">' +
                 '<span class="fl typespan">名称：</span>' +
-                '<div class="fl"><input type="text" class="layui-input" id="nametype"></div>' +
+                '<div class="fl"><input type="text" class="layui-input" id="searchname"></div>' +
                 '</div>' +
                 '<div class="clearfix" style="padding: 5px 20px;">' +
                 '<span class="fl typespan">品牌：</span>' +
@@ -1317,11 +1327,11 @@
                 '</div>' +
                 '<div class="clearfix" style="padding: 5px 20px;">' +
                 '<span class="fl typespan">联系人：</span>' +
-                '<div class="fl"><input type="text" class="layui-input" id="nametype"></div>' +
+                '<div class="fl"><input type="text" class="layui-input" id="searchlinkman"></div>' +
                 '</div>' +
                 '<div class="clearfix" style="padding: 5px 20px;">' +
                 '<span class="fl typespan">电话：</span>' +
-                '<div class="fl"><input type="text" class="layui-input" id="nametype"></div>' +
+                '<div class="fl"><input type="text" class="layui-input" id="searchtel"></div>' +
                 '</div>' +
                 '</div>' +
                 '</div>'
@@ -1333,7 +1343,24 @@
                 maxmin: true,
                 content: addserarchThml,
                 success: function() {
-                    $.fn.zTree.init($("#treeDemo2"), searchsetting, zNodes);
+                    $.ajax({
+                        "method":"get",
+                        "url":"/typeList",
+                        "dataType":"json",
+                        "contentType":"application/json",
+                        "success":function(data){
+
+                            if(data.code==200){
+                                zNodes=data.data;
+                                $.fn.zTree.init($("#treeDemo2"), searchsetting, zNodes);
+                            }else{
+                                layer.msg(data.msg,function(){
+                                });
+                            }
+
+                        }
+
+                    });
                 }
             });
             $('#closemask').click(function() {
@@ -1378,19 +1405,77 @@
             });
 
             function search() {
-                var name = $('#searchname').val();
-                if (name.trim().length == 0) {
-                    getdata();
-                } else {
-                    var data = JSON.parse(localStorage.getItem('datalist'));
-                    var hasdata = [];
-                    data.map(function(item, idx) {
-                        if (item.name == name) {
-                            hasdata.push(item);
+                var jsonStr = "{";
+                if($("#searchfl").val().trim().length!=0){
+                    jsonStr=jsonStr+"\"type\":\""+$("#searchfl").val().trim()+"\",";
+                }
+                if($("#searchname").val().trim().length!=0){
+                    jsonStr=jsonStr+"\"name\":\""+$("#searchname").val().trim()+"\",";
+                }
+                if($("#searchtel").val().trim().length!=0){
+                    jsonStr=jsonStr+"\"tel\":\""+$("#searchtel").val().trim()+"\",";
+                }
+                if($("#searchlinkman").val().trim().length!=0){
+                    jsonStr=jsonStr+"\"linkman\":\""+$("#searchlinkman").val().trim()+"\",";
+                }
+                jsonStr=jsonStr+"\"size\":20,\"pageNum\":1}";
+                layui.use('laypage', function() {
+                    var laypage = layui.laypage;
+                    //执行一个laypage实例
+                    var i = 0;
+                    $.ajax({
+                        url:"/customerCount",
+                        contentType:"application/json",
+                        dataType:"json",
+                        data:jsonStr,
+                        method:"post",
+                        async:false,
+                        success:function(data){
+
+                            i = data.data[0];
                         }
                     });
-                    getdata(hasdata)
-                }
+                    laypage.render({
+                        limit: 20, // 每页条数
+                        elem: 'pages', //注意，这里的 test1 是 ID，不用加 # 号,
+                        count:i, //数据总数，从服务端得到
+                        jump: function(obj, first){
+                            //obj包含了当前分页的所有参数，比如：
+                            console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                            console.log(obj.limit); //得到每页显示的条数
+                            var jsonData = JSON.parse(jsonStr);
+                            jsonData.size = obj.limit;
+                            jsonData.pageNum = obj.curr;
+                            sendJsonData(JSON.stringify(jsonData),"/customerPages","post",function(data){
+                                localStorage.removeItem("datalist");
+                                localStorage.setItem('datalist', JSON.stringify(data.data));
+                                getdatas();
+                            });
+
+                            // alert(obj.curr);
+                            //首次不执行
+                            if(!first){
+                                //do something
+                            }
+                        }
+                    });
+                });
+                layer.closeAll(); // 关闭layui的弹窗
+
+
+                // var name = $('#searchname').val();
+                // if (name.trim().length == 0) {
+                //     getdata();
+                // } else {
+                //     var data = JSON.parse(localStorage.getItem('datalist'));
+                //     var hasdata = [];
+                //     data.map(function(item, idx) {
+                //         if (item.name == name) {
+                //             hasdata.push(item);
+                //         }
+                //     });
+                //     getdata(hasdata)
+                // }
             };
             // 在本地获取所有的商家信息
             function getdata(data) {

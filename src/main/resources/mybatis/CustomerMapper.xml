@@ -10,19 +10,227 @@
 
     </select>
 
-    <select id="customerCount" resultType="java.lang.Integer">
-
-        SELECT COUNT(ID) FROM BD_CUSTOMER
-
-    </select>
-
-    <select id="findCustomerByVo" parameterType="customerSelectVo" resultType="customer">
+    <select id="findCustomerByVoNoPage" parameterType="customer" resultType="customerExcelVo">
 
         select * from BD_CUSTOMER
         <where>
             <if test="id!=null">
-                ID=#{id},
+                and ID=#{id}
             </if>
+            <if test="name!=null">
+                and NAME=#{name}
+            </if>
+            <if test="money!=null">
+                and MONEY=#{money}
+            </if>
+            <if test="legal!=null">
+                and LEGAL=#{legal}
+            </if>
+            <if test="nature!=null">
+                and NATURE=#{nature}
+            </if>
+            <if test="address!=null">
+                and ADDRESS=#{address}
+            </if>
+            <if test="province!=null">
+                and PROVINCE=#{province}
+            </if>
+            <if test="city!=null">
+                and CITY=#{city}
+            </if>
+            <if test="url!=null">
+                and URL=#{url}
+            </if>
+            <if test="nstype!=null">
+                and NSTYPE=#{nstype}
+            </if>
+            <if test="type!=null">
+                and TYPE=#{type}
+            </if>
+            <if test="zyzdate!=null">
+                and ZYZDATE=#{zyzdate}
+            </if>
+            <if test="zzh!=null">
+                and ZZH=#{zzh}
+            </if>
+            <if test="diode!=null">
+                and DIODE=#{diode}
+            </if>
+            <if test="yyzz!=null">
+                and YYZZ=#{yyzz}
+            </if>
+            <if test="sales!=null">
+                and SALES=#{sales}
+            </if>
+            <if test="brand!=null">
+                and BRAND=#{brand}
+            </if>
+            <if test="range!=null">
+                and RANGE=#{range}
+            </if>
+            <if test="general!=null">
+                and GENERAL=#{general}
+            </if>
+            <if test="branch!=null">
+                and BRANCH=#{branch}
+            </if>
+            <if test="business!=null">
+                and BUSINESS=#{business}
+            </if>
+            <if test="equipment!=null">
+                and EQUIPMENT=#{equipment}
+            </if>
+            <if test="apc!=null">
+                and APC=#{apc}
+            </if>
+            <if test="after!=null">
+                and AFTER=#{after}
+            </if>
+            <if test="wxie!=null">
+                and WXIE=#{wxie}
+            </if>
+            <if test="ywyj!=null">
+                and YWYJ=#{ywyj}
+            </if>
+            <if test="linkman!=null">
+                and LINKMAN=#{linkman}
+            </if>
+            <if test="phone!=null">
+                and PHONE=#{phone}
+            </if>
+            <if test="tel!=null">
+                and TEL=#{tel}
+            </if>
+            <if test="email!=null">
+                and EMAIL=#{email}
+            </if>
+            <if test="createDate!=null">
+                and CREATEDATE=#{createDate}
+            </if>
+            <if test="updateDate!=null">
+                and UPDATEDATE=#{updateDate}
+            </if>
+        </where>
+        order by updateDate desc
+
+
+    </select>
+
+    <select id="customerCount" resultType="java.lang.Integer" parameterType="customer">
+
+        SELECT COUNT(ID) FROM BD_CUSTOMER
+        <where>
+            <if test="id!=null">
+                and ID=#{id}
+            </if>
+            <if test="name!=null">
+                and NAME=#{name}
+            </if>
+            <if test="money!=null">
+                and MONEY=#{money}
+            </if>
+            <if test="legal!=null">
+                and LEGAL=#{legal}
+            </if>
+            <if test="nature!=null">
+                and NATURE=#{nature}
+            </if>
+            <if test="address!=null">
+                and ADDRESS=#{address}
+            </if>
+            <if test="province!=null">
+                and PROVINCE=#{province}
+            </if>
+            <if test="city!=null">
+                and CITY=#{city}
+            </if>
+            <if test="url!=null">
+                and URL=#{url}
+            </if>
+            <if test="nstype!=null">
+                and NSTYPE=#{nstype}
+            </if>
+            <if test="type!=null">
+                and TYPE=#{type}
+            </if>
+            <if test="zyzdate!=null">
+                and ZYZDATE=#{zyzdate}
+            </if>
+            <if test="zzh!=null">
+                and ZZH=#{zzh}
+            </if>
+            <if test="diode!=null">
+                and DIODE=#{diode}
+            </if>
+            <if test="yyzz!=null">
+                and YYZZ=#{yyzz}
+            </if>
+            <if test="sales!=null">
+                and SALES=#{sales}
+            </if>
+            <if test="brand!=null">
+                and BRAND=#{brand}
+            </if>
+            <if test="range!=null">
+                and RANGE=#{range}
+            </if>
+            <if test="general!=null">
+                and GENERAL=#{general}
+            </if>
+            <if test="branch!=null">
+                and BRANCH=#{branch}
+            </if>
+            <if test="business!=null">
+                and BUSINESS=#{business}
+            </if>
+            <if test="equipment!=null">
+                and EQUIPMENT=#{equipment}
+            </if>
+            <if test="apc!=null">
+                and APC=#{apc}
+            </if>
+            <if test="after!=null">
+                and AFTER=#{after}
+            </if>
+            <if test="wxie!=null">
+                and WXIE=#{wxie}
+            </if>
+            <if test="ywyj!=null">
+                and YWYJ=#{ywyj}
+            </if>
+            <if test="linkman!=null">
+                and LINKMAN=#{linkman}
+            </if>
+            <if test="phone!=null">
+                and PHONE=#{phone}
+            </if>
+            <if test="tel!=null">
+                and TEL=#{tel}
+            </if>
+            <if test="email!=null">
+                and EMAIL=#{email}
+            </if>
+            <if test="createDate!=null">
+                and CREATEDATE=#{createDate}
+            </if>
+            <if test="updateDate!=null">
+                and UPDATEDATE=#{updateDate}
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="findCustomerByIdAndVersion" parameterType="customer" resultType="customer">
+
+        select ID from BD_CUSTOMER where ID=#{id} and VERSION=#{version}
+
+    </select>
+
+    <update id="updateCustomerById" parameterType="customer">
+
+        update BD_CUSTOMER
+        <set>
             <if test="name!=null">
                 NAME=#{name},
             </if>
@@ -110,17 +318,122 @@
             <if test="email!=null">
                 EMAIL=#{email},
             </if>
-            <if test="createDate!=null">
-                CREATEDATE=#{createDate},
-            </if>
             <if test="updateDate!=null">
                 UPDATEDATE=#{updateDate},
             </if>
-        </where>
-        order by updateDate
-        <if test="index!=null">
+            VERSION = VERSION+1
+        </set>
+        where ID=#{id}
+    </update>
 
-        </if>
+    <select id="findCustomerByVo" parameterType="customerSelectVo" resultType="customer">
+
+
+        select
+          *
+        from
+          (select a.*,ROWNUM rn from (
+            select * from BD_CUSTOMER
+            <where>
+                <if test="id!=null">
+                    and ID=#{id}
+                </if>
+                <if test="name!=null">
+                    and NAME=#{name}
+                </if>
+                <if test="money!=null">
+                    and MONEY=#{money}
+                </if>
+                <if test="legal!=null">
+                    and LEGAL=#{legal}
+                </if>
+                <if test="nature!=null">
+                    and NATURE=#{nature}
+                </if>
+                <if test="address!=null">
+                    and ADDRESS=#{address}
+                </if>
+                <if test="province!=null">
+                    and PROVINCE=#{province}
+                </if>
+                <if test="city!=null">
+                    and CITY=#{city}
+                </if>
+                <if test="url!=null">
+                    and URL=#{url}
+                </if>
+                <if test="nstype!=null">
+                    and NSTYPE=#{nstype}
+                </if>
+                <if test="type!=null">
+                    and TYPE=#{type}
+                </if>
+                <if test="zyzdate!=null">
+                    and ZYZDATE=#{zyzdate}
+                </if>
+                <if test="zzh!=null">
+                    and ZZH=#{zzh}
+                </if>
+                <if test="diode!=null">
+                    and DIODE=#{diode}
+                </if>
+                <if test="yyzz!=null">
+                    and YYZZ=#{yyzz}
+                </if>
+                <if test="sales!=null">
+                    and SALES=#{sales}
+                </if>
+                <if test="brand!=null">
+                    and BRAND=#{brand}
+                </if>
+                <if test="range!=null">
+                    and RANGE=#{range}
+                </if>
+                <if test="general!=null">
+                    and GENERAL=#{general}
+                </if>
+                <if test="branch!=null">
+                    and BRANCH=#{branch}
+                </if>
+                <if test="business!=null">
+                    and BUSINESS=#{business}
+                </if>
+                <if test="equipment!=null">
+                    and EQUIPMENT=#{equipment}
+                </if>
+                <if test="apc!=null">
+                    and APC=#{apc}
+                </if>
+                <if test="after!=null">
+                    and AFTER=#{after}
+                </if>
+                <if test="wxie!=null">
+                    and WXIE=#{wxie}
+                </if>
+                <if test="ywyj!=null">
+                    and YWYJ=#{ywyj}
+                </if>
+                <if test="linkman!=null">
+                    and LINKMAN=#{linkman}
+                </if>
+                <if test="phone!=null">
+                    and PHONE=#{phone}
+                </if>
+                <if test="tel!=null">
+                    and TEL=#{tel}
+                </if>
+                <if test="email!=null">
+                    and EMAIL=#{email}
+                </if>
+                <if test="createDate!=null">
+                    and CREATEDATE=#{createDate}
+                </if>
+                <if test="updateDate!=null">
+                    and UPDATEDATE=#{updateDate}
+                </if>
+            </where>
+        order by updateDate desc) a where ROWNUM &lt;= #{end})where rn &gt;=#{index}
+
 
     </select>
 
