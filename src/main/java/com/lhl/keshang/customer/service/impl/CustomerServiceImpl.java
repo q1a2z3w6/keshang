@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
             outputStream.close();
             inputStream.close();
-//            file.delete();
+            file.delete();
 
         } catch (IOException e) {
             e.printStackTrace();

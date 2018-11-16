@@ -18,6 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class HandlerRegister implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginHandler()).addPathPatterns("/**").excludePathPatterns("/login.html").excludePathPatterns("/agreement.html").excludePathPatterns("/register.html");
+        registry.addInterceptor(new LoginHandler()).addPathPatterns("/**").excludePathPatterns("/login.html").excludePathPatterns("/agreement.html").excludePathPatterns("/register.html");
     }
 }
