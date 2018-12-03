@@ -84,6 +84,7 @@
                 <button class="layui-btn" onclick="openadd()">新增</button>
                 <button class="layui-btn" onclick="searchbox()">查询</button>
                 <button class="layui-btn" onclick="location.href='seepage.html'">管理员查询</button>
+                <button class="layui-btn" id="delet">删除</button>
             </div>
             <div class="record_data">
                 <table border="0" cellpadding="0" cellspacing="0" align="left" width="100%">
@@ -108,7 +109,9 @@
         <script type="text/javascript" src="../js/jquery.ztree.excheck.js"></script>
         <script type="text/javascript" src="../js/jquery.ztree.exedit.js"></script>
         <script>
-
+            $('#delet').click(function(){
+                $("#tabledata tr").remove()
+            })
 
         function sendJsonData(data,url,method,fun){
 

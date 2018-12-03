@@ -69,43 +69,43 @@
         </dependency>
     </dependencies>
 
-    <!--<build>-->
-    <!--<plugins>-->
-    <!--<plugin>-->
-    <!--<groupId>org.springframework.boot</groupId>-->
-    <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-    <!--<configuration>-->
-    <!--<fork>true</fork>-->
-    <!--</configuration>-->
-    <!--</plugin>-->
-    <!--</plugins>-->
-    <!--</build>-->
-
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
                 <version>1.10</version>
                 <configuration>
-                    <!-- 生成linux，window两种平台的执行脚本 -->
+                    &lt;!&ndash; 生成linux，window两种平台的执行脚本 &ndash;&gt;
                     <platforms>
                         <platform>windows</platform>
                         <platform>unix</platform>
                     </platforms>
-                    <!--根目录-->
+                    &lt;!&ndash;根目录&ndash;&gt;
                     <assembleDirectory>${project.build.directory}/product</assembleDirectory>
-                    <!--打包的jar，以及maven依赖的jar放到这个目录里-->
+                    &lt;!&ndash;打包的jar，以及maven依赖的jar放到这个目录里&ndash;&gt;
                     <repositoryName>lib</repositoryName>
-                    <!--可执行脚本目录-->
+                    &lt;!&ndash;可执行脚本目录&ndash;&gt;
                     <binFolder>bin</binFolder>
-                    <!--配置文件的目标目录-->
+                    &lt;!&ndash;配置文件的目标目录&ndash;&gt;
                     <configurationDirectory>conf</configurationDirectory>
-                    <!--拷贝配置文到上面的目录中-->
+                    &lt;!&ndash;拷贝配置文到上面的目录中&ndash;&gt;
                     <copyConfigurationDirectory>true</copyConfigurationDirectory>
-                    <!--从哪里拷贝配置文件-->
+                    &lt;!&ndash;从哪里拷贝配置文件&ndash;&gt;
                     <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
-                    <!--lib目录中jar的存放规则，默认时${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录中-->
+                    &lt;!&ndash;lib目录中jar的存放规则，默认时${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录中&ndash;&gt;
                     <repositoryLayout>flat</repositoryLayout>
                     <encoding>UTF-8</encoding>
                     <logsDirectory>logs</logsDirectory>
@@ -113,7 +113,7 @@
                     <programs>
                         <program>
                             <id>product</id>
-                            <!--启动类-->
+                            &lt;!&ndash;启动类&ndash;&gt;
                             <mainClass>com.lhl.keshang.KeShangApplication</mainClass>
                             <jvmSettings>
                                 <extraArguments>
@@ -127,5 +127,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>
