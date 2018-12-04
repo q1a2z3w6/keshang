@@ -161,6 +161,10 @@
 <script type="text/javascript" src="../js/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="../js/jquery.ztree.exedit.js"></script>
 <script>
+
+    //个个服务的url
+    var diodeUrl = "/diodeList";
+
     $('#delet').click(function(){
         $("#tabledata tr").remove()
     })
@@ -671,8 +675,6 @@
             var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level) + "px'></span>";
             switchObj.before(spaceStr);
         }
-        alert(treeNode.tId);
-        alert($("#" + treeNode.tId + "_span").html());
         var spantxt = $("#" + treeNode.tId + "_span").html();
         if (spantxt.length > 9) {
             spantxt = spantxt.substring(0, 9) + "...";
@@ -732,9 +734,10 @@
     //        s6
     function zTreeBeforeClicksd(treeId, treeNode, clickFlag) {
         console.log(treeNode);
-//                $('#diodes6').val(getFilePath(treeNode));
-        openadd()
-        $('#treeDemos6').hide()
+        // $('#type').val(getFilePath(treeNode));
+        treeNodee = treeNode;
+        openadd();
+        $('#treeDemos6').hide();
     };
     function typezTreeBeforeClick(treeId, treeNode, clickFlag) {
         console.log(treeNode);
@@ -1224,35 +1227,42 @@
     $(document).on('focus', '#diodes2', function(event) {
         console.log('djdd')
         $('#treeDemos2').show()
-        $.fn.zTree.init($("#treeDemos2"), settings, zyzz);
+        inizTree(diodeUrl,$("#treeDemos2"), settings, zyzz);
+        // $.fn.zTree.init($("#treeDemos2"), settings, zyzz);
 
     });
     //        s3
     $(document).on('focus', '#diodes3', function(event) {
-        console.log('djdd')
-        $('#treeDemos3').show()
-        $.fn.zTree.init($("#treeDemos3"), settingsa, zyzz);
+        console.log('djdd');
+        $('#treeDemos3').show();
+        inizTree(diodeUrl,$("#treeDemos3"), settingsa, zyzz);
+        // $.fn.zTree.init($("#treeDemos3"), settingsa, zyzz);
 
     });
     //        s4
     $(document).on('focus', '#diodes4', function(event) {
-        console.log('djdd')
-        $('#treeDemos4').show()
-        $.fn.zTree.init($("#treeDemos4"), settingsb, zyzz);
+        console.log('djdd');
+        $('#treeDemos4').show();
+        inizTree(diodeUrl,$("#treeDemos4"), settingsb, zyzz);
+        // $.fn.zTree.init($("#treeDemos4"), settingsb, zyzz);
 
     });
     //        s5
     $(document).on('focus', '#diodes5', function(event) {
         console.log('djdd')
         $('#treeDemos5').show()
-        $.fn.zTree.init($("#treeDemos5"), settingsc, zyzz);
+        inizTree(diodeUrl,$("#treeDemos5"), settingsc, zyzz);
+        // $.fn.zTree.init($("#treeDemos5"), settingsc, zyzz);
 
     });
     //        s6
     $(document).on('focus', '#diodes6', function(event) {
         console.log('djdd')
         $('#treeDemos6').show()
-        $.fn.zTree.init($("#treeDemos6"), settingsd, zNodes);
+
+        inizTree("/typeList",$("#treeDemos6"),settingsd,zNodes);
+
+        // $.fn.zTree.init($("#treeDemos6"), settingsd, zNodes);
 
     });
 
@@ -1801,6 +1811,8 @@
                 // $.fn.zTree.init($("#treeDemo2"), setting, zyzz);
                 // $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
 
+                $('#type').val(getFilePath(treeNodee));
+
                 initAddHtmlNode();
 
                 layui.use(['form', 'layedit', 'laydate'], function() {
@@ -1920,7 +1932,6 @@
             if($("#searchlinkman").val().trim().length!=0){
                 data["linkman"]=$("#searchlinkman").val().trim();
             }
-            alert(JSON.stringify(data));
             data["size"]=20;
             data["pageNum"]=1;
 
@@ -2016,6 +2027,8 @@
     //华丽的分界线-------------------------------------------------------------
     //华丽的分界线-------------------------------------------------------------
 
+    var treeNodee;
+
     /**
      * post方式ajax
      * @param data post的Json数据
@@ -2108,6 +2121,10 @@
                     //obj包含了当前分页的所有参数，比如：
                     console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
                     console.log(obj.limit); //得到每页显示的条数
+                    var json = JSON.parse(jsonData);
+                    json.size=obj.limit;
+                    json.pageNum=obj.curr;
+                    jsonData = JSON.stringify(json);
                     postJsonData(jsonData,"/customerPages",function(data){
                         localStorage.removeItem("datalist");
                         localStorage.setItem('datalist', JSON.stringify(data.data));
