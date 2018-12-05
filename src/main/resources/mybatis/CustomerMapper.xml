@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhl.keshang.customer.mapper.CustomerMapper">
 
+
     <select id="findCustomerById" resultType="customer" parameterType="customer">
 
         SELECT * FROM BD_CUSTOMER WHERE ID = #{id}
@@ -22,6 +23,9 @@
             </if>
             <if test="money!=null">
                 and MONEY=#{money}
+            </if>
+            <if test="currency!=null">
+                and CURRENCY=#{currency}
             </if>
             <if test="legal!=null">
                 and LEGAL=#{legal}
@@ -56,8 +60,17 @@
             <if test="diode!=null">
                 and DIODE=#{diode}
             </if>
-            <if test="yyzz!=null">
-                and YYZZ=#{yyzz}
+            <if test="diodes1!=null">
+                and DIODES1=#{diodes1}
+            </if>
+            <if test="diodes2!=null">
+                and DIODES2=#{diodes2}
+            </if>
+            <if test="diodes3!=null">
+                and DIODES3=#{diodes3}
+            </if>
+            <if test="diodes4!=null">
+                and DIODES4=#{diodes4}
             </if>
             <if test="sales!=null">
                 and SALES=#{sales}
@@ -88,9 +101,6 @@
             </if>
             <if test="wxie!=null">
                 and WXIE=#{wxie}
-            </if>
-            <if test="ywyj!=null">
-                and YWYJ=#{ywyj}
             </if>
             <if test="linkman!=null">
                 and LINKMAN=#{linkman}
@@ -129,6 +139,9 @@
             <if test="money!=null">
                 and MONEY=#{money}
             </if>
+            <if test="currency!=null">
+                and CURRENCY=#{currency}
+            </if>
             <if test="legal!=null">
                 and LEGAL=#{legal}
             </if>
@@ -162,8 +175,17 @@
             <if test="diode!=null">
                 and DIODE=#{diode}
             </if>
-            <if test="yyzz!=null">
-                and YYZZ=#{yyzz}
+            <if test="diodes1!=null">
+                and DIODES1=#{diodes1}
+            </if>
+            <if test="diodes2!=null">
+                and DIODES2=#{diodes2}
+            </if>
+            <if test="diodes3!=null">
+                and DIODES3=#{diodes3}
+            </if>
+            <if test="diodes4!=null">
+                and DIODES4=#{diodes4}
             </if>
             <if test="sales!=null">
                 and SALES=#{sales}
@@ -194,9 +216,6 @@
             </if>
             <if test="wxie!=null">
                 and WXIE=#{wxie}
-            </if>
-            <if test="ywyj!=null">
-                and YWYJ=#{ywyj}
             </if>
             <if test="linkman!=null">
                 and LINKMAN=#{linkman}
@@ -237,6 +256,9 @@
             <if test="money!=null">
                 MONEY=#{money},
             </if>
+            <if test="currency!=null">
+                CURRENCY=#{currency},
+            </if>
             <if test="legal!=null">
                 LEGAL=#{legal},
             </if>
@@ -270,8 +292,17 @@
             <if test="diode!=null">
                 DIODE=#{diode},
             </if>
-            <if test="yyzz!=null">
-                YYZZ=#{yyzz},
+            <if test="diodes1!=null">
+                DIODES1=#{diodes1},
+            </if>
+            <if test="diodes2!=null">
+                DIODES2=#{diodes2},
+            </if>
+            <if test="diodes3!=null">
+                DIODES3=#{diodes3},
+            </if>
+            <if test="diodes4!=null">
+                DIODES4=#{diodes4},
             </if>
             <if test="sales!=null">
                 SALES=#{sales},
@@ -302,9 +333,6 @@
             </if>
             <if test="wxie!=null">
                 WXIE=#{wxie},
-            </if>
-            <if test="ywyj!=null">
-                YWYJ=#{ywyj},
             </if>
             <if test="linkman!=null">
                 LINKMAN=#{linkman},
@@ -344,6 +372,9 @@
                 <if test="money!=null">
                     and MONEY=#{money}
                 </if>
+                <if test="currency!=null">
+                    and CURRENCY=#{currency}
+                </if>
                 <if test="legal!=null">
                     and LEGAL=#{legal}
                 </if>
@@ -377,8 +408,17 @@
                 <if test="diode!=null">
                     and DIODE=#{diode}
                 </if>
-                <if test="yyzz!=null">
-                    and YYZZ=#{yyzz}
+                <if test="diodes1!=null">
+                    and DIODES1=#{diodes1}
+                </if>
+                <if test="diodes2!=null">
+                    and DIODES2=#{diodes2}
+                </if>
+                <if test="diodes3!=null">
+                    and DIODES3=#{diodes3}
+                </if>
+                <if test="diodes4!=null">
+                    and DIODES4=#{diodes4}
                 </if>
                 <if test="sales!=null">
                     and SALES=#{sales}
@@ -409,9 +449,6 @@
                 </if>
                 <if test="wxie!=null">
                     and WXIE=#{wxie}
-                </if>
-                <if test="ywyj!=null">
-                    and YWYJ=#{ywyj}
                 </if>
                 <if test="linkman!=null">
                     and LINKMAN=#{linkman}
@@ -450,6 +487,9 @@
             <if test="money!=null">
                 MONEY,
             </if>
+            <if test="currency!=null">
+                CURRENCY,
+            </if>
             <if test="legal!=null">
                 LEGAL,
             </if>
@@ -483,8 +523,17 @@
             <if test="diode!=null">
                 DIODE,
             </if>
-            <if test="yyzz!=null">
-                YYZZ,
+            <if test="diodes1!=null">
+                DIODES1,
+            </if>
+            <if test="diodes2!=null">
+                DIODES2,
+            </if>
+            <if test="diodes3!=null">
+                DIODES3,
+            </if>
+            <if test="diodes4!=null">
+                DIODES4,
             </if>
             <if test="sales!=null">
                 SALES,
@@ -516,9 +565,6 @@
             <if test="wxie!=null">
                 WXIE,
             </if>
-            <if test="ywyj!=null">
-                YWYJ,
-            </if>
             <if test="linkman!=null">
                 LINKMAN,
             </if>
@@ -547,6 +593,9 @@
             </if>
             <if test="money!=null">
                 #{money},
+            </if>
+            <if test="currency!=null">
+                #{currency},
             </if>
             <if test="legal!=null">
                 #{legal},
@@ -581,8 +630,17 @@
             <if test="diode!=null">
                 #{diode},
             </if>
-            <if test="yyzz!=null">
-                #{yyzz},
+            <if test="diodes1!=null">
+                #{diodes1},
+            </if>
+            <if test="diodes2!=null">
+                #{diodes2},
+            </if>
+            <if test="diodes3!=null">
+                #{diodes3},
+            </if>
+            <if test="diodes4!=null">
+                #{diodes4},
             </if>
             <if test="sales!=null">
                 #{sales},
@@ -613,9 +671,6 @@
             </if>
             <if test="wxie!=null">
                 #{wxie},
-            </if>
-            <if test="ywyj!=null">
-                #{ywyj},
             </if>
             <if test="linkman!=null">
                 #{linkman},

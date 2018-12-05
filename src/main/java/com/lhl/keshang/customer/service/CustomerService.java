@@ -26,4 +26,6 @@ public interface CustomerService {
     Result updateCustomer(Customer customer);
 
     Result downExcelByVo(CustomerSelectVo customerSelectVo, HttpServletRequest req, HttpServletResponse resp);
+
+    Result selectYwyjByCustomerId(String customerId);
 }

@@ -56,6 +56,7 @@ public class CustomerSelectVo extends PageBean {
     private String id;
     private String name;
     private Double money;
+    private String currency;
     private String legal;
     private String nature;
     private String address;
@@ -68,7 +69,10 @@ public class CustomerSelectVo extends PageBean {
     private Date zyzdate;
     private String zzh;
     private String diode;
-    private String yyzz;
+    private String diodes1;
+    private String diodes2;
+    private String diodes3;
+    private String diodes4;
     private String sales;
     private String brand;
     private String range;
@@ -79,7 +83,6 @@ public class CustomerSelectVo extends PageBean {
     private String apc;
     private String after;
     private String wxie;
-    private String ywyj;
     private String linkman;
     private String phone;
     private String tel;

@@ -2,8 +2,11 @@ package com.lhl.keshang.customer.dao.impl;
 
 import com.lhl.keshang.customer.dao.CustomerDao;
 import com.lhl.keshang.customer.mapper.CustomerMapper;
+import com.lhl.keshang.customer.mapper.YwyjMapper;
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.Ywyj;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.customer.pojo.vo.YwyjVo;
 import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +27,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Autowired
     private CustomerMapper customerMapper;
+    @Autowired
+    private YwyjMapper ywyjMapper;
 
     @Override
     public List<CustomerExcelVo> findCustomerByVoNoPage(Customer customer) {
@@ -69,6 +74,27 @@ public class CustomerDaoImpl implements CustomerDao {
     public void saveCustomer(Customer customer) {
 
         customerMapper.addNewCustomer(customer);
+
+    }
+
+    @Override
+    public void saveYwyj(List<YwyjVo> ywyj) {
+
+        ywyjMapper.saveYwyjList(ywyj);
+
+    }
+    @Override
+    public void updateYwyj(List<YwyjVo> ywyj) {
+
+        ywyjMapper.updateYwyjList(ywyj);
+
+    }
+
+    @Override
+    public List<Ywyj> selectByCustomerId(String customerId) {
+
+        List<Ywyj> ywyjs = ywyjMapper.selectByCustomerId(customerId);
+        return ywyjs;
 
     }
 }

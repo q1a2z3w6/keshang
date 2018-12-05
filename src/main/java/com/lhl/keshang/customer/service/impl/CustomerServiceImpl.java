@@ -2,7 +2,9 @@ package com.lhl.keshang.customer.service.impl;
 
 import com.lhl.keshang.customer.dao.CustomerDao;
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.Ywyj;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.customer.pojo.vo.YwyjVo;
 import com.lhl.keshang.customer.service.CustomerService;
 import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import com.lhl.keshang.pub.pojo.Result;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -124,11 +127,46 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Result saveCustomer(Customer customer) {
-        customer.setId(UUID.randomUUID().toString());
+        List<YwyjVo> ywyj = customer.getYwyj();
+        String id = UUID.randomUUID().toString();
+        ArrayList<YwyjVo> arrayList = new ArrayList<>();
+        for(YwyjVo y:ywyj){
+            if(y.getItemName()==null||y.getItemName().trim().length()==0){
+
+            }else{
+                y.setId(UUID.randomUUID().toString());
+                y.setCustomerId(id);
+                y.setVersion(1L);
+                arrayList.add(y);
+            }
+        }
+        customerDao.saveYwyj(arrayList);
+        customer.setId(id);
         Date date = new Date();
         customer.setCreateDate(date);
         customer.setUpdateDate(date);
+        customer.setVersion(1L);
         customerDao.saveCustomer(customer);
         return ResultUtil.success(customer);
     }
+
+    @Override
+    public Result selectYwyjByCustomerId(String customerId){
+
+        List<Ywyj> ywyjs = customerDao.selectByCustomerId(customerId);
+        Result result = null;
+        if(ywyjs!=null&&ywyjs.size()!=0){
+
+            result = ResultUtil.success(ywyjs);
+
+        }else{
+
+            result = ResultUtil.error(500,"数据为空");
+
+        }
+
+        return result;
+
+    }
+
 }

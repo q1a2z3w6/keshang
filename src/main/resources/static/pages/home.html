@@ -162,15 +162,24 @@
 <script type="text/javascript" src="../js/jquery.ztree.exedit.js"></script>
 <script>
 
-    //个个服务的url
+    //服务的url
     var diodeUrl = "/diodeList";
+    var moneyTypeUrl="/moneyTypeList";
+    var natureUrl="/natureList";
+    var provinceUrl="/provinceList";
+    var cityUrl = "/cityUrl";
+    var salesUrl = "/salesList";
+    var selectYwyjByCustomerId = "/selectYwyjByCustomerId";
+
 
     $('#delet').click(function(){
         $("#tabledata tr").remove()
     })
     var allhtml = $('#tabledata');
+    //当前查询条件
+    var jsonCul = {};
     //加载导航条
-    iniLaypage(JSON.stringify({}));
+    iniLaypage(JSON.stringify(jsonCul));
     /*layui.use('laypage', function() {
         var laypage = layui.laypage;
         //执行一个laypage实例
@@ -182,12 +191,30 @@
     });*/
     // 保存提交添加供应商信息
     function getmsg(type) {
+        var yw = [];
+        var f = $("#tabledata input[name=itemName]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=business]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=content]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=buildArea]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=money]");
+        buildJson(f,yw);
+        f = $("#tabledata select[name=state]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=descp]");
+        buildJson(f,yw);
+
+
         var msg = localStorage.getItem('datalist');
         var data = {
             version:$("#version").val(),//记录版本信息
             id: $('#id').val(),//客商id
             name: $('#name').val(), // 供方名称
             money: $('#money').val(), // 注册资金
+            currency:$("#moneyTypeList").val(),//注册资金币种
             legal: $('#legal').val(), // 法人
             nature: $('#nature').val(), //企业性质
             address: $('#address').val(), //办公地址
@@ -199,7 +226,11 @@
             zyzdate: $('#zyzdate').val(), // 营业执照起始日期
             zzh: $('#zzh').val(), // 营业执照号
             diode: $('#diode').val(), //主营资质
-            yyzz: $('#yyzz').val(), // 兼营业务资质
+            diodes1:$('#diodes2').val(),//兼营业务资质1
+            diodes2:$('#diodes3').val(),//兼营业务资质2
+            diodes3:$('#diodes4').val(),//兼营业务资质3
+            diodes4:$('#diodes5').val(),//兼营业务资质4
+            // yyzz: $('#yyzz').val(), // 兼营业务资质
             sales: $('#sales').val(), // 体系认证
             brand: $('#brand').val(), // 产品许可证
             range: $('#range').val(), // 主营业务范围
@@ -212,7 +243,7 @@
             apc: $('#apc').val(), //年产能力
             after: $('#after').val(), //售后服务能力
             wxie: $('#wxie').val(), //外协厂家
-            ywyj: $('#ywyj').val(), //以往业绩
+            ywyj: yw, //以往业绩
 
             linkman: $('#linkman').val(), // 联系人
             phone: $('#phone').val(), // 联系固话
@@ -220,7 +251,7 @@
             email: $('#email').val() // 邮箱
         };
         for (var i in data) {
-            if(i!='version'&&i!='id'){
+            if(i!='version'&&i!='id'&&i!='ywyj'){
                 if (data[i].trim().length == 0) {
                     layer.msg('请添加完所有的信息');
                     return
@@ -272,7 +303,15 @@
             '   </div>' +
             '   <div class="fr">' +
             '       <p>注册资金</p>' +
-            '       <div><input type="number" name="" class="layui-input" id="money"></div>' +
+            '       <div><input type="number" name="" style="display:inline-block;width:48%;margin-right:2%" class="layui-input" id="money">' +
+            '<select name="interest" id="moneyTypeList"  style="display:inline-block;width:50%">' +
+            '           <option value="0" selected="">欧元</option>' +
+            '           <option value="0" selected="">港币</option>' +
+            '           <option value="0" selected="">美元</option>' +
+            '           <option value="0" selected="">人民币</option>' +
+
+            '       </select>'+
+            '</div>' +
             '   </div>' +
             '</div>' +
 
@@ -300,17 +339,14 @@
             '       <div><input type="text" name="" class="layui-input" id="address"></div>' +
             '   </div>' +
             '   <div class="fr">' +
-            '       <p>地域</p>' +
+            '       <p>注册地址</p>' +
             '       <div><select name="interest" id="province"  style="display:inline-block;width:48%">' +
             '           <option value="0" selected="">广东省</option>' +
             '           <option value="1" >江苏省</option>' +
             '           <option value="2">浙江省</option>' +
             '           <option value="3">山东省</option>' +
             '       </select><select name="interest" id="city"  style="display:inline-block;width:48%;margin-left:2%">' +
-            '           <option value="0">深圳市</option>' +
-            '           <option value="1" selected="">广州市</option>' +
-            '           <option value="2">东莞市</option>' +
-            '           <option value="3">佛山市</option>' +
+
             '       </select></div>' +
             '   </div>' +
             '</div>' +
@@ -329,7 +365,7 @@
             '<div class="clearfix listitem">' +
             '   <div class="fl">' +
             '       <p>供方分类</p>' +
-            '       <div class="fllist"><ul id="treeDemo1" style="width:230px;" class="ztree"></ul><input type="text" name="" class="layui-input" readonly id="type"></div>' +
+            '       <div class="fllist"><ul id="treeDemo1" style="width:230px;" class="ztree"></ul><input type="text" name="" readonly class="layui-input" id="type"></div>' +
             '   </div>' +
             '   <div class="fr">' +
             '       <p>营业执照起始日期</p>' +
@@ -351,11 +387,27 @@
             '<div class="clearfix listitem">' +
             '            <div class="fl">' +
             '                <p>兼营业务资质</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="yyzz"></div>' +
+            //                '       <div class="zzlists" style="width:25%;float:left"><ul id="treeDemos2" style="width:230px;" class="ztree"></ul><input type="text" name="" class="layui-input" id="diode1" readonly></div>' +
+            //                '       <div class="zzlists" style="width:25%;float:left"><ul id="treeDemos3" style="width:230px;" class="ztree"></ul><input type="text" name="" class="layui-input" id="diode2" readonly></div>' +
+            //                '       <div class="zzlists" style="width:25%;float:left"><ul id="treeDemos4" style="width:230px;" class="ztree"></ul><input type="text" name="" class="layui-input" id="diode3" readonly></div>' +
+            //                '       <div class="zzlists" style="width:25%;float:left"><ul id="treeDemos5" style="width:230px;" class="ztree"></ul><input type="text" name="" class="layui-input" id="diode4" readonly></div>' +
+            '       <div class="zzlists"><ul id="treeDemos2" style="width:230px;" class="ztree ztrees"></ul>' +
+            '<input type="text" name="" class="layui-input" id="diodes2" placeholder="兼营业务资质1" readonly></div>' +
+            '       <div class="zzlists"><ul id="treeDemos3" style="width:230px;" class="ztree ztrees"></ul>' +
+            '<input type="text" name="" class="layui-input" id="diodes3"  placeholder="兼营业务资质2" readonly></div>' +
+            '       <div class="zzlists"><ul id="treeDemos4" style="width:230px;" class="ztree ztrees"></ul>' +
+            '<input type="text" name="" class="layui-input" id="diodes4"  placeholder="兼营业务资质3" readonly></div>' +
+            '       <div class="zzlists"><ul id="treeDemos5" style="width:230px;" class="ztree ztrees"></ul>' +
+            '<input type="text" name="" class="layui-input" id="diodes5"  placeholder="兼营业务资质4" readonly></div>' +
+
+            //                '       <div class="zzlists"><ul id="treeDemos6" style="width:230px;" class="ztree ztrees"></ul>' +
+            //                '<input type="text" name="" class="layui-input" id="diodes6"  placeholder="兼营业务资质4" readonly></div>' +
+
+            //                '                <div><input type="text" name="" class="layui-input" id="yyzz"></div>' +
             '            </div>' +
             '            <div class="fr">' +
             '                <p>体系认证</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="sales"></div>' +
+            '                <div><input type="text" name="" readonly class="layui-input" id="sales"></div>' +
             '            </div>' +
             '        </div>' +
 
@@ -375,7 +427,7 @@
             ' <div class="clearfix listitem">' +
             '            <div class="fl">' +
             '                <p>总部</p>' +
-            '                <div><input placeholder="请输入内容" type="text" name="" class="layui-input" id="general" ></div>' +
+            '                <div><input placeholder="请输入内容" type="text" name="" class="layui-input" id="general"></div>' +
             '            </div>' +
             '            <div class="fr">' +
             '                <p>分支机构</p>' +
@@ -387,37 +439,100 @@
             ' <div class="listitem">' +
             '            <div class="">' +
             '                <p>主营业务区域</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="business"></div>' +
+            //                '   <div>' +
+            //                '       <div><select name="interest" id="province"  style="display:inline-block;width:48%">' +
+            //                '           <option value="0" selected="">广东省</option>' +
+            //                '           <option value="1" >江苏省</option>' +
+            //                '           <option value="2">浙江省</option>' +
+            //                '           <option value="3">山东省</option>' +
+            //                '       </select><select name="interest" id="city"  style="display:inline-block;width:48%;margin-left:2%">' +
+            //                '           <option value="0">深圳市</option>' +
+            //                '           <option value="1" selected="">广州市</option>' +
+            //                '           <option value="2">东莞市</option>' +
+            //                '           <option value="3">佛山市</option>' +
+            //                '       </select></div>' +
+            //                '   </div>' +
+            '                <div><textarea placeholder="请选择地区" class="layui-textarea" readonly id="business"></textarea></div>' +
             '            </div>' +
             '</div>' +
             ' <div class="listitem">' +
             '            <div class="">' +
             '                <p>加工生产设备</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="equipment"></div>' +
+            '                <div> <textarea placeholder="请输入内容" class="layui-textarea" id="equipment"></textarea></div>' +
             '            </div>' +
             '</div>' +
             ' <div class="listitem">' +
             '            <div class="">' +
             '                <p>年产能力</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="apc"></div>' +
+            '                <div><textarea placeholder="请输入内容" class="layui-textarea" id="apc"></textarea></div>' +
             '            </div>' +
             '</div>' +
             ' <div class="listitem">' +
             '            <div class="">' +
             '                <p>售后服务能力</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="after"></div>' +
+            '                <div><textarea placeholder="请输入内容" class="layui-textarea" id="after"></textarea></div>' +
             '            </div>' +
             '</div>' +
             ' <div class="listitem">' +
             '            <div class="">' +
             '                <p>外协厂家</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="wxie"></div>' +
+            '                <div><textarea placeholder="请输入内容" class="layui-textarea" id="wxie"></textarea></div>' +
             '            </div>' +
             '</div>' +
             ' <div class="listitem">' +
             '            <div class="">' +
-            '                <p>以往业绩（项目名称、开发商、合同内容、规模、状态）</p>' +
-            '                <div><input type="text" name="" class="layui-input" id="ywyj"></div>' +
+            '                <p>以往业绩</p>' +
+            '                <div>' +
+            '<div class="general-wrapper msgtable" >'+
+            '<div class=" table_type1 table_type2 " >' +
+            '<table border="0" cellpadding="0" cellspacing="0" align="left" width="100%">' +
+            ' <thead>' +
+            ' <tr>' +
+            '  <td>项目名称</td>' +
+            '  <td>开发商</td>' +
+            '  <td>合同内容</td>' +
+            '  <td>建筑面积</td>' +
+            '  <td>合同金额</td>' +
+            '  <td>项目状态: </td>' +
+            '  <td>备注</td>' +
+            '  </tr>' +
+            '  </thead>' +
+            '   <tbody id="tabledata">' +
+            '  <tr>' +
+            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="business" class="layui-input"></td>' +
+            '   <td><input type="text" name="content" class="layui-input"></td>' +
+            '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
+            '   <td><input type="text" name="money" class="layui-input"></td>' +
+            '   <td> <div><select name="state" id="nature"  style="display:block;width:100%">' +
+            '           <option value="0">进行中</option>' +
+            '           <option value="1" selected="">已完成</option>' +
+
+            '       </select></div></td>' +
+            '   <td><input type="text" name="descp" class="layui-input"></td>' +
+
+            '    </tr>' +
+            '    <tr>' +
+            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="business" class="layui-input"></td>' +
+            '   <td><input type="text" name="content" class="layui-input"></td>' +
+            '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
+            '   <td><input type="text" name="money" class="layui-input"></td>' +
+            '   <td> <div><select name="state" id="nature"  style="display:block;width:100%">' +
+            '           <option value="0">进行中</option>' +
+            '           <option value="1" selected="">已完成</option>' +
+
+            '       </select></div></td>' +
+            '   <td><input type="text" name="descp" class="layui-input"></td>' +
+
+            '    </tr>' +
+            '   </tbody>' +
+            '    </table>' +
+            '    </div>' +
+            '    </div>' +
+
+            '' +
+            '</div>' +
             '            </div>' +
             '</div>' +
 
@@ -448,18 +563,21 @@
             '            </div>' +
             '        </div>' +
             '        <div class="clearfix listitem">' +
-            '            <div class="fl">' +
+            '            <div class="">' +
             '                <p>附件清单</p>' +
-            '                <div><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>上传文件</button></div>' +
+            '                <p style="margin:10px 0;">请上传正确的文件格式</p>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>执照上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>资格证书上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>安全生产许可证上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>其他资质上传</button></div>' +
             '            </div>' +
+
 
             '        </div>' +
             '        <div class="textcenter">' +
-            '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg(' + idx + ')">保存</button>' +
+            '            <button class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
             '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
             '        </div>' +
-            '       <input type="hidden" id="id"/>' +
-            '       <input type="hidden" id="version"/>' +
             '    </form></div>';
         $('.canclemodel').click(function() {
             layer.closeAll()
@@ -475,6 +593,7 @@
             area: ['85%', '100%'],
             content: addhtml, // iframe的url
             success: function() {
+                var arr = [];
                 // $.fn.zTree.init($("#treeDemo"), setting, zyzz);
                 //
                 // $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
@@ -482,18 +601,23 @@
                 $('#id').val(nowdata.id); // id
                 $('#name').val(nowdata.name); // 供方名称
                 $('#money').val(nowdata.money); // 注册资金
-                $('#legal').val(nowdata.legal), // 法人
-                    $('#nature').val(nowdata.nature); //企业性质
+                arr.push(nowdata.currency);//注册资金币种
+                $('#legal').val(nowdata.legal); // 法人
+                arr.push(nowdata.nature); //企业性质
                 $('#address').val(nowdata.address); //办公地址
-                $('#province').val(nowdata.province); //区域-省份
-                $('#city').val(nowdata.city); //区域-城市
+                arr.push(nowdata.province); //区域-省份
+                arr.push(nowdata.city); //区域-城市
                 $('#url').val(nowdata.url); //官方网站
                 $('#nstype').val(nowdata.nstype); //纳税人类型
                 $('#type').val(nowdata.type); // 供方分类
                 $('#zyzdate').val(nowdata.zyzdate); // 营业执照起始日期
                 $('#zzh').val(nowdata.zzh); // 营业执照号
                 $('#diode').val(nowdata.diode); //主营资质
-                $('#yyzz').val(nowdata.yyzz); // 兼营业务资质
+                $('#diodes2').val(nowdata.diodes1); //兼营业务资质1
+                $('#diodes3').val(nowdata.diodes2); //兼营业务资质2
+                $('#diodes4').val(nowdata.diodes3); //兼营业务资质3
+                $('#diodes5').val(nowdata.diodes4); //兼营业务资质4
+                // $('#yyzz').val(nowdata.yyzz); // 兼营业务资质
                 $('#sales').val(nowdata.sales); // 体系认证
                 $('#brand').val(nowdata.brand); // 产品许可证
                 $('#range').val(nowdata.range); // 主营业务范围
@@ -504,14 +628,46 @@
                 $('#apc').val(nowdata.apc); //年产能力
                 $('#after').val(nowdata.after); //售后服务能力
                 $('#wxie').val(nowdata.wxie); //外协厂家
-                $('#ywyj').val(nowdata.ywyj); //以往业绩
 
                 $('#linkman').val(nowdata.linkman); // 联系人
                 $('#phone').val(nowdata.phone); // 联系固话
                 $('#tel').val(nowdata.tel); // 手机
                 $('#email').val(nowdata.email); // 邮箱
 
-                initAddHtmlNode();
+
+                initAddHtmlNode(arr);
+                //加载以往业绩
+                getJsonData(selectYwyjByCustomerId+"/"+nowdata.id,function(data){
+
+                    if(data.code==200){
+                        var arr = data.data;
+                        var itemName = $("#tabledata input[name=itemName]");
+                        var business = $("#tabledata input[name=business]");
+                        var content = $("#tabledata input[name=content]");
+                        var buildArea = $("#tabledata input[name=buildArea]");
+                        var money = $("#tabledata input[name=money]");
+                        var state = $("#tabledata select[name=state]");
+                        var descp = $("#tabledata input[name=descp]");
+                        for(var i=0;i<arr.length;i++){
+
+                            $(itemName[i]).val(arr[i]["itemName"]);
+                            $(business[i]).val(arr[i]["business"]);
+                            $(content[i]).val(arr[i]["content"]);
+                            $(buildArea[i]).val(arr[i]["buildArea"]);
+                            $(money[i]).val(arr[i]["money"]);
+                            $(state[i]).val(arr[i]["state"]);
+                            $(descp[i]).val(arr[i]["descp"]);
+
+                        }
+
+
+                    }else{
+                        // layer.msg(data.msg);
+                    }
+
+                });
+
+
 
             }
         });
@@ -1283,6 +1439,11 @@
     var salesbox = '';
 
     function salesfn(type, data) {
+        //请求认证体系数据
+        getJsonData(salesUrl,function(d){
+            saleslist = d.data;
+        },false);
+
         var html = '<div class="salesbox">';
         if (type == 'add') {
             for (var i = 0; i < saleslist.length; i++) {
@@ -1362,6 +1523,8 @@
             maxmin: true,
             content: salesfn(type, getval),
             success: function(layero, index) {
+
+
 
             }
         });
@@ -1520,7 +1683,7 @@
             '   <div class="fr">' +
             '       <p>注册资金</p>' +
             '       <div><input type="number" name="" style="display:inline-block;width:48%;margin-right:2%" class="layui-input" id="money">' +
-            '<select name="interest" id="province"  style="display:inline-block;width:50%">' +
+            '<select name="interest" id="moneyTypeList"  style="display:inline-block;width:50%">' +
             '           <option value="0" selected="">欧元</option>' +
             '           <option value="0" selected="">港币</option>' +
             '           <option value="0" selected="">美元</option>' +
@@ -1562,10 +1725,7 @@
             '           <option value="2">浙江省</option>' +
             '           <option value="3">山东省</option>' +
             '       </select><select name="interest" id="city"  style="display:inline-block;width:48%;margin-left:2%">' +
-            '           <option value="0">深圳市</option>' +
-            '           <option value="1" selected="">广州市</option>' +
-            '           <option value="2">东莞市</option>' +
-            '           <option value="3">佛山市</option>' +
+
             '       </select></div>' +
             '   </div>' +
             '</div>' +
@@ -1718,31 +1878,31 @@
             '  </thead>' +
             '   <tbody id="tabledata">' +
             '  <tr>' +
-            '   <td></td>' +
-            '   <td></td>' +
-            '   <td></td>' +
-            '   <td></td>' +
-            '   <td></td>' +
-            '   <td> <div><select name="interest" id="nature"  style="display:block;width:100%">' +
+            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="business" class="layui-input"></td>' +
+            '   <td><input type="text" name="content" class="layui-input"></td>' +
+            '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
+            '   <td><input type="text" name="money" class="layui-input"></td>' +
+            '   <td> <div><select name="state" id="nature"  style="display:block;width:100%">' +
             '           <option value="0">进行中</option>' +
             '           <option value="1" selected="">已完成</option>' +
 
             '       </select></div></td>' +
-            '   <td></td>' +
+            '   <td><input type="text" name="descp" class="layui-input"></td>' +
 
             '    </tr>' +
             '    <tr>' +
-            '    <td></td>' +
-            '    <td></td>' +
-            '    <td></td>' +
-            '    <td></td>' +
-            '    <td></td>' +
-            '   <td> <div><select name="interest" id="nature"  style="display:block;width:100%">' +
+            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="business" class="layui-input"></td>' +
+            '   <td><input type="text" name="content" class="layui-input"></td>' +
+            '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
+            '   <td><input type="text" name="money" class="layui-input"></td>' +
+            '   <td> <div><select name="state" id="nature"  style="display:block;width:100%">' +
             '           <option value="0">进行中</option>' +
             '           <option value="1" selected="">已完成</option>' +
 
             '       </select></div></td>' +
-            '    <td></td>' +
+            '   <td><input type="text" name="descp" class="layui-input"></td>' +
 
             '    </tr>' +
             '   </tbody>' +
@@ -1919,7 +2079,7 @@
 
         function search() {
 
-            var data = {};
+            jsonCul = {};
             if($("#searchfl").val().trim().length!=0){
                 data["type"]=$("#searchfl").val().trim();
             }
@@ -1935,7 +2095,7 @@
             data["size"]=20;
             data["pageNum"]=1;
 
-            iniLaypage(JSON.stringify(data));
+            iniLaypage(JSON.stringify(jsonCul));
 
             layer.closeAll(); // 关闭layui的弹窗
 
@@ -2158,6 +2318,7 @@
                 layer.msg('修改成功');
                 getdatas();
                 layer.closeAll(); // 关闭layui的弹窗
+                iniLaypage(JSON.stringify(jsonCul));
             }else{
                 layer.msg(d.msg);
             }
@@ -2181,7 +2342,6 @@
                     var datalist = [];
                     datalist.push(data);
                     localStorage.setItem('datalist', JSON.stringify(datalist));
-
                 }else{
                     msg = JSON.parse(msg);
                     msg.unshift(data);
@@ -2190,6 +2350,7 @@
                 layer.msg('添加成功');
                 getdatas();
                 layer.closeAll(); // 关闭layui的弹窗
+                iniLaypage(JSON.stringify(jsonCul));
             }else{
                 layer.msg(d.msg);
             }
@@ -2200,8 +2361,9 @@
 
     /**
      * 加载新增修改客商信息时的供应商分类等
+     * @param fun ajax完成后的回调
      */
-    function initAddHtmlNode(){
+    function initAddHtmlNode(arr){
         // $.fn.zTree.init($("#treeDemo"), setting, zyzz);
         // $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
         inizTree("/diodeList",$("#treeDemo"),setting,zyzz);
@@ -2213,9 +2375,71 @@
             function(res){
                 console.log(res);
             });
+        if(arr!=undefined){
+
+            iniSelectNode(moneyTypeUrl,$("#moneyTypeList"),function(d){
+                $("#moneyTypeList").val(arr[0]);
+            });
+            iniSelectNode(natureUrl,$("#nature"),function(d){
+                $("#nature").val(arr[1]);
+            });
+            $("#province").change(function(){
+
+                var selectValue = $("#province").val();
+                iniSelectNode(cityUrl+"/"+selectValue,$("#city"),function(d){
+                    $("#city").val(arr[3]);
+                });
+
+            });
+            iniSelectNode(provinceUrl,$("#province"),function(d){
+                $("#province").val(arr[2]);
+                $("#province").change();
+            });
+
+        }else{
+            iniSelectNode(moneyTypeUrl,$("#moneyTypeList"));
+            iniSelectNode(natureUrl,$("#nature"));
+            iniSelectNode(provinceUrl,$("#province"));
+            $("#province").change(function(){
+
+                var selectValue = $("#province").val();
+                iniSelectNode(cityUrl+"/"+selectValue,$("#city"));
+
+            });
+        }
 
     }
 
+    /**
+     * 初始化下拉列表
+     * @param url 获取数据地址
+     * @param selectId select元素id
+     * @param fun ajax完成后的回调
+     */
+    function iniSelectNode(url,selectId,fun){
+
+        getJsonData(url,function(data){
+
+            if(data.code==200){
+
+                selectId.empty();
+                var list = data.data;
+                var html=[];
+                html.push('<option value="-1" selected="selected">请选择</option>');
+                $.each(list,function(index,item){
+                    html.push('<option value="'+item.id+'">'+item.name+'</option>');
+                });
+                selectId.html(html.join(""));
+
+                if(fun!=undefined){
+                    fun(data);
+                }
+
+            }
+
+        });
+
+    }
 
     /**
      * 为元素添加非自动的上传
@@ -2245,6 +2469,24 @@
             });
 
         });
+
+    }
+
+    /**
+     * 根据传入的JQuery对象数组，构建json数组，以对象name属性为key，以val()为值，每个对象生成的键值对作为数组中的每一项
+     * @param nodeArray JQuery对象数组
+     * @param arr 存储存储生成的json数组
+     */
+    function buildJson(nodeArray,arr){
+
+        for(var i=0;i<nodeArray.length;i++){
+            if(arr[i]==undefined){
+                arr.push({});
+            }
+            if($(nodeArray[i]).val().trim().length!=0){
+                arr[i][$(nodeArray[i]).attr("name")]=$(nodeArray[i]).val();
+            }
+        }
 
     }
 

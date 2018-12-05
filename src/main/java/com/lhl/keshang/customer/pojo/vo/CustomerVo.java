@@ -1,11 +1,13 @@
 package com.lhl.keshang.customer.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lhl.keshang.customer.pojo.Ywyj;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 应用模块名称<p>
@@ -58,6 +60,8 @@ public class CustomerVo {
     @NotNull(message = "{customer.field.null}")
     private Double money;
     @NotBlank(message = "{customer.field.null}")
+    private String currency;
+    @NotBlank(message = "{customer.field.null}")
     private String legal;
     @NotBlank(message = "{customer.field.null}")
     private String nature;
@@ -80,8 +84,10 @@ public class CustomerVo {
     private String zzh;
     @NotBlank(message = "{customer.field.null}")
     private String diode;
-    @NotBlank(message = "{customer.field.null}")
-    private String yyzz;
+    private String diodes1;
+    private String diodes2;
+    private String diodes3;
+    private String diodes4;
     @NotBlank(message = "{customer.field.null}")
     private String sales;
     @NotBlank(message = "{customer.field.null}")
@@ -103,8 +109,6 @@ public class CustomerVo {
     @NotBlank(message = "{customer.field.null}")
     private String wxie;
     @NotBlank(message = "{customer.field.null}")
-    private String ywyj;
-    @NotBlank(message = "{customer.field.null}")
     private String linkman;
     @NotBlank(message = "{customer.field.null}")
     private String phone;
@@ -117,6 +121,7 @@ public class CustomerVo {
     private Date createDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
     private Date updateDate;
+    private List<YwyjVo> ywyj;
 
 
 }

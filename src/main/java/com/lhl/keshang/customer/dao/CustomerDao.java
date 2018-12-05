@@ -1,7 +1,9 @@
 package com.lhl.keshang.customer.dao;
 
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.Ywyj;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
+import com.lhl.keshang.customer.pojo.vo.YwyjVo;
 import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 
 import java.util.List;
@@ -27,4 +29,11 @@ public interface CustomerDao {
     Customer findCustomerByIdAndVersion(Customer customer);
 
     List<CustomerExcelVo> findCustomerByVoNoPage(Customer customer);
+
+    void saveYwyj(List<YwyjVo> ywyj);
+
+    void updateYwyj(List<YwyjVo> ywyj);
+
+    List<Ywyj> selectByCustomerId(String customerId);
+
 }

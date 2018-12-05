@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhl.keshang.customer.mapper.YwyjMapper">
+
+    <insert id="saveYwyjList" parameterType="list">
+
+        insert all
+        <foreach collection="list" item="item" open="" separator=" " close="">
+            into BD_YWYJ(ID, ITEMNAME, BUSINESS, CONTENT, BUILDAREA, MONEY, STATE, DESCP, CUSTOMERID) values(
+            <if test="item.id!=null">
+                #{item.id},
+            </if>
+            <if test="item.id==null">
+                NULL,
+            </if>
+            <if test="item.itemName!=null">
+                #{item.itemName},
+            </if>
+            <if test="item.itemName==null">
+                NULL,
+            </if>
+            <if test="item.business!=null">
+                #{item.business},
+            </if>
+            <if test="item.business==null">
+                NULL,
+            </if>
+            <if test="item.content!=null">
+                #{item.content},
+            </if>
+            <if test="item.content==null">
+                NULL,
+            </if>
+            <if test="item.buildArea!=null">
+                #{item.buildArea},
+            </if>
+            <if test="item.buildArea==null">
+                NULL,
+            </if>
+            <if test="item.money!=null">
+                #{item.money},
+            </if>
+            <if test="item.money==null">
+                NULL,
+            </if>
+            <if test="item.state!=null">
+                #{item.state},
+            </if>
+            <if test="item.state==null">
+                NULL,
+            </if>
+            <if test="item.descp!=null">
+                #{item.descp},
+            </if>
+            <if test="item.descp==null">
+                NULL,
+            </if>
+            <if test="item.customerId!=null">
+                #{item.customerId}
+            </if>
+            <if test="item.customerId==null">
+                NULL
+            </if>
+            )
+        </foreach>
+        select 1 from dual
+    </insert>
+
+    <update id="updateYwyjList" parameterType="list">
+
+        update BD_YWYJ
+        <set>
+
+            <foreach collection="list" item="item" separator=" " open="ITEMNAME = case" close="else ITEMNAME end,">
+                <if test="item.itemName!=null">
+                    when ID = #{item.id} then #{item.itemName}
+                </if>
+                <if test="item.itemName==null">
+                    when ID = #{item.id} then ITEMNAME
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="BUSINESS = case" close="else BUSINESS end,">
+                <if test="item.business!=null">
+                    when ID = #{item.id} then #{item.business}
+                </if>
+                <if test="item.business==null">
+                    when ID = #{item.id} then BUSINESS
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="CONTENT = case" close="else CONTENT end,">
+                <if test="item.content!=null">
+                    when ID = #{item.id} then #{item.content}
+                </if>
+                <if test="item.content==null">
+                    when ID = #{item.id} then CONTENT
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="BUILDAREA = case" close="else BUILDAREA end,">
+                <if test="item.buildArea!=null">
+                    when ID = #{item.id} then #{item.buildArea}
+                </if>
+                <if test="item.buildArea==null">
+                    when ID = #{item.id} then BUILDAREA
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="MONEY = case" close="else MONEY end,">
+                <if test="item.money!=null">
+                    when ID = #{item.id} then #{item.money}
+                </if>
+                <if test="item.money==null">
+                    when ID = #{item.id} then MONEY
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="STATE = case" close="else STATE end,">
+                <if test="item.state!=null">
+                    when ID = #{item.id} then #{item.state}
+                </if>
+                <if test="item.state==null">
+                    when ID = #{item.id} then STATE
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="DESC = case" close="else DESC end,">
+                <if test="item.desc!=null">
+                    when ID = #{item.id} then #{item.desc}
+                </if>
+                <if test="item.desc==null">
+                    when ID = #{item.id} then DESC
+                </if>
+            </foreach>
+            <foreach collection="list" item="item" separator=" " open="VERSION = case" close="else VERION end,">
+                when ID = #{item.id} then VERSION+1
+            </foreach>
+
+        </set>
+
+
+    </update>
+
+    <select id="selectByCustomerId" parameterType="string" resultType="ywyj">
+
+        select * from BD_YWYJ where CUSTOMERID=#{value}
+
+    </select>
+
+</mapper>

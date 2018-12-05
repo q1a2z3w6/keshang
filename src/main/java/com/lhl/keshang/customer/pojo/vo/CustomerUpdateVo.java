@@ -58,6 +58,8 @@ public class CustomerUpdateVo {
     @NotNull(message = "{customer.field.null}")
     private Double money;
     @NotBlank(message = "{customer.field.null}")
+    private String currency;
+    @NotBlank(message = "{customer.field.null}")
     private String legal;
     @NotBlank(message = "{customer.field.null}")
     private String nature;
@@ -80,8 +82,10 @@ public class CustomerUpdateVo {
     private String zzh;
     @NotBlank(message = "{customer.field.null}")
     private String diode;
-    @NotBlank(message = "{customer.field.null}")
-    private String yyzz;
+    private String diodes1;
+    private String diodes2;
+    private String diodes3;
+    private String diodes4;
     @NotBlank(message = "{customer.field.null}")
     private String sales;
     @NotBlank(message = "{customer.field.null}")
