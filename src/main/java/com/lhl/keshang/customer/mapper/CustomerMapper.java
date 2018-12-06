@@ -1,6 +1,7 @@
 package com.lhl.keshang.customer.mapper;
 
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.vo.CustomerLikeVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,8 @@ public interface CustomerMapper {
     Customer findCustomerByIdAndVersion(Customer customer);
 
     List<CustomerExcelVo> findCustomerByVoNoPage(Customer customer);
+
+    List<Customer> findByLikeVo(CustomerLikeVo customerLikeVo);
+
+    Integer findCustomerLikeCount(CustomerLikeVo customerLikeVo);
 }

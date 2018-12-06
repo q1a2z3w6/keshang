@@ -105,11 +105,129 @@ body{
     line-height: 1.3;
 }
 .general2{
-    left: 110px;
+    left: 356px;
 }
 .general3{
-    left: 210px;
+    left:130px;
+}
+.general4{
+    left: 242px;
+
 }
 .general2 a{
     color: #fff;
+}
+.pingyou{
+    width: 279px;
+    z-index: 10;
+    background:#ffffff;
+    position: absolute;
+}
+/*修改之后的css*/
+.mainsup{
+    width: 97%;
+    margin: 0 auto;
+}
+.supeliTop{
+    width: 100%;
+    border: 2px solid #cd9e50;
+    height: 222px;
+    background: #FFFFFF;
+    overflow: hidden;
+    padding-top: 22px;
+    margin-top: 20px;
+}
+.supeliTopL{
+    float: left;
+    width: 20%;
+}
+.zhizhao{
+    /* float: left; */
+    width: 150px;
+    margin: 0 auto;
+    height: 200px;
+    border: 1px solid #e0e0e0;
+}
+.zhizhao img{
+    width: 150px;
+    height: 200px;
+
+}
+.supeliTopM{
+    float: left;
+    width: 60%;
+}
+.companyName{
+    font-size: 24px;
+    line-height: 36px;
+    color: #000000;
+}
+.conpanyAddress{
+    font-size: 18px;
+    line-height: 34px;
+    margin-left: 15px;
+    color: #3d3d3d;
+    margin-top: 10px;
+}
+.supeliTopR{
+    float: left;
+    width: 20%;
+    margin-top: 65px;
+}
+.supeliTopR a{
+    display: block;
+    background: #cd9e50;
+    color: #ffffff;
+    width: 140px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 20px;
+}
+.space{
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+}
+.supeliBottom{
+    width: 97%;
+    border: 2px solid #cd9e50;
+    min-height: 330px;
+
+    background: #FFFFFF;
+    margin-top: 20px;
+    overflow: hidden;
+    padding: 22px;
+    padding-bottom: 40px;
+}
+.supliTit{
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+.v-line{
+    background: #cd9e50;
+    width: 5px ;
+    height: 25px;
+    display: inline-block;
+    margin: 0 15px;
+    float: left;
+}
+.pinggu{
+    height: 50px;
+    padding-left: 20px;
+}
+.tabh{
+    background: #ebe3d8;
+    color: #cd9e50;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+.mar20{
+    margin-right: 20px;
+}
+.sure{
+    margin-top: -4px;
 }

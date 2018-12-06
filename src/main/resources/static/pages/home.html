@@ -1565,6 +1565,7 @@
     }
     //        添加体系认证结束
 
+
     //添加地区内容
     //            省市直辖市数据
     var businesslist = [
@@ -1575,9 +1576,15 @@
         '湖南省', '湖北省', '贵州省', '四川省',
         '云南省', '甘肃省', '青海省', '福建省',
         '广东省', '台湾省', '海南省', '内蒙古',
-        '宁夏  ', '广西  ', '西藏  ', '新疆  ',
+        '宁夏', '广西', '西藏', '新疆',
         '香港', '澳门'
     ];
+
+    getJsonData(provinceUrl+"/listname",function(data){
+
+        businesslist = data.data;
+
+    });
 
     var businessbox = '';
 
@@ -2283,7 +2290,6 @@
         postJsonData(jsonData,"/customerCount",function(data){
             dataCount = data.data[0];
         },false);
-
         layui.use('laypage', function() {
             var laypage = layui.laypage;
             //执行一个laypage实例

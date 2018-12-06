@@ -3,6 +3,7 @@ package com.lhl.keshang.customer.service.impl;
 import com.lhl.keshang.customer.dao.CustomerDao;
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.Ywyj;
+import com.lhl.keshang.customer.pojo.vo.CustomerLikeVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.customer.pojo.vo.YwyjVo;
 import com.lhl.keshang.customer.service.CustomerService;
@@ -197,4 +198,33 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    @Override
+    public Result findByLikeVo(CustomerLikeVo customerLikeVo) {
+
+        Result result = null;
+        customerLikeVo.initParam();
+        List<Customer> customers = customerDao.findByLikeVo(customerLikeVo);
+
+        if(customers!=null&&customers.size()!=0){
+
+            result = ResultUtil.success(customers);
+
+        }else{
+
+            result = ResultUtil.error(500,"没有数据");
+
+        }
+
+        return result;
+    }
+
+    @Override
+    public Result findCustomerLikeCount(CustomerLikeVo customerLikeVo) {
+        Result result = null;
+        customerLikeVo.initParam();
+        Integer i = customerDao.findCustomerLikeCount(customerLikeVo);
+        result = ResultUtil.success(i);
+
+        return result;
+    }
 }

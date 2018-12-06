@@ -5,6 +5,7 @@ import com.lhl.keshang.customer.mapper.CustomerMapper;
 import com.lhl.keshang.customer.mapper.YwyjMapper;
 import com.lhl.keshang.customer.pojo.Customer;
 import com.lhl.keshang.customer.pojo.Ywyj;
+import com.lhl.keshang.customer.pojo.vo.CustomerLikeVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.customer.pojo.vo.YwyjVo;
 import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
@@ -112,4 +113,19 @@ public class CustomerDaoImpl implements CustomerDao {
 
     }
 
+    @Override
+    public List<Customer> findByLikeVo(CustomerLikeVo customerLikeVo) {
+
+        List<Customer> customers = customerMapper.findByLikeVo(customerLikeVo);
+
+        return customers;
+    }
+
+    @Override
+    public Integer findCustomerLikeCount(CustomerLikeVo customerLikeVo) {
+
+        Integer i = customerMapper.findCustomerLikeCount(customerLikeVo);
+
+        return i;
+    }
 }

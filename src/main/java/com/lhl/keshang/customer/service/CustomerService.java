@@ -1,6 +1,7 @@
 package com.lhl.keshang.customer.service;
 
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.vo.CustomerLikeVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.pub.pojo.Result;
 
@@ -28,4 +29,8 @@ public interface CustomerService {
     Result downExcelByVo(CustomerSelectVo customerSelectVo, HttpServletRequest req, HttpServletResponse resp);
 
     Result selectYwyjByCustomerId(String customerId);
+
+    Result findByLikeVo(CustomerLikeVo customerLikeVo);
+
+    Result findCustomerLikeCount(CustomerLikeVo customerLikeVo);
 }

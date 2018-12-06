@@ -80,6 +80,17 @@ border-right: 1px solid #000;
 padding: 10px;
 border-bottom: 1px solid #000
 }
+.table_type2 table{
+	border: 1px solid #eee;
+	border-right: none;
+	border-bottom: none;
+	margin: auto;
+}
+.table_type2 table td{
+	border-right: 1px solid #eee;
+	padding: 10px;
+	border-bottom: 1px solid #eee
+}
 .table_type1  h2.h2tit{
 text-align: center;
 line-height: 50px;

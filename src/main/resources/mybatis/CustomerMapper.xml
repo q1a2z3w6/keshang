@@ -5,6 +5,60 @@
 <mapper namespace="com.lhl.keshang.customer.mapper.CustomerMapper">
 
 
+    <select id="findCustomerLikeCount" parameterType="customerLikeVo" resultType="integer">
+
+        select count(*) from BD_CUSTOMER
+        <where>
+
+            <if test="name!=null">
+                and NAME like #{name}
+            </if>
+            <if test="address!=null">
+                and ADDRESS like #{address}
+            </if>
+            <if test="type!=null">
+                and TYPE like #{type}
+            </if>
+            <if test="business!=null">
+                and BUSINESS like #{business}
+            </if>
+            <if test="diode!=null">
+                and ( DIODE like #{diode} or DIODES1 like #{diode} or DIODES2 like #{diode} or DIODES3 like #{diode} or DIODES4 like #{diode}  )
+            </if>
+
+        </where>
+
+    </select>
+
+    <select id="findByLikeVo" parameterType="customerLikeVo" resultType="customer">
+
+        select
+        *
+        from
+        (select a.*,ROWNUM rn from (
+        select * from BD_CUSTOMER
+        <where>
+
+            <if test="name!=null">
+                and NAME like #{name}
+            </if>
+            <if test="address!=null">
+                and ADDRESS like #{address}
+            </if>
+            <if test="type!=null">
+                and TYPE like #{type}
+            </if>
+            <if test="business!=null">
+                and BUSINESS like #{business}
+            </if>
+            <if test="diode!=null">
+                and ( DIODE like #{diode} or DIODES1 like #{diode} or DIODES2 like #{diode} or DIODES3 like #{diode} or DIODES4 like #{diode}  )
+            </if>
+
+        </where>
+        order by updateDate desc) a where ROWNUM &lt;= #{end})where rn &gt;=#{index}
+    </select>
+
     <select id="findCustomerById" resultType="customer" parameterType="customer">
 
         SELECT * FROM BD_CUSTOMER WHERE ID = #{id}
@@ -134,7 +188,7 @@
                 and ID=#{id}
             </if>
             <if test="name!=null">
-                and NAME=#{name}
+                and NAME like #{name}
             </if>
             <if test="money!=null">
                 and MONEY=#{money}
@@ -164,7 +218,7 @@
                 and NSTYPE=#{nstype}
             </if>
             <if test="type!=null">
-                and TYPE=#{type}
+                and TYPE like #{type}
             </if>
             <if test="zyzdate!=null">
                 and ZYZDATE=#{zyzdate}
@@ -218,13 +272,13 @@
                 and WXIE=#{wxie}
             </if>
             <if test="linkman!=null">
-                and LINKMAN=#{linkman}
+                and LINKMAN like #{linkman}
             </if>
             <if test="phone!=null">
                 and PHONE=#{phone}
             </if>
             <if test="tel!=null">
-                and TEL=#{tel}
+                and TEL like #{tel}
             </if>
             <if test="email!=null">
                 and EMAIL=#{email}

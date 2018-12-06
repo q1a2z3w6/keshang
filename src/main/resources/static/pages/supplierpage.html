@@ -212,7 +212,9 @@
                 });
                 $('#tabledata').html(html);
             }
-            var nowdata = JSON.parse(localStorage.getItem('datalist'))[0];
+            var i = localStorage.getItem("idx");
+
+            var nowdata = JSON.parse(localStorage.getItem('datalist'))[i];
 
 
             $('.g-name').html(nowdata.name); // 供方名称

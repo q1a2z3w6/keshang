@@ -1,6 +1,8 @@
 package com.lhl.keshang.customer.controller;
 
 import com.lhl.keshang.customer.pojo.Customer;
+import com.lhl.keshang.customer.pojo.Province;
+import com.lhl.keshang.customer.pojo.vo.CustomerLikeVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerSelectVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerUpdateVo;
 import com.lhl.keshang.customer.pojo.vo.CustomerVo;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,6 +102,21 @@ public class CustomerController {
         return JsonUtil.objectToJsonString(result);
 
     }
+    @GetMapping("/provinceList/listname")
+    public String provinceListName(){
+
+        Result result = customerFacadeService.provinceList();
+        if(result.getCode()==200){
+            ArrayList<String> nameList = new ArrayList<>();
+            List<Province> data = result.getData();
+            for(Province p:data){
+                nameList.add(p.getName());
+            }
+            result.setData(nameList);
+        }
+        return JsonUtil.objectToJsonString(result);
+
+    }
 
     @GetMapping("/natureList")
     public String natureList(){
@@ -155,6 +173,21 @@ public class CustomerController {
 
         Result result = customerService.selectYwyjByCustomerId(customerId);
 
+        return JsonUtil.objectToJsonString(result);
+
+    }
+
+    @PostMapping("/findCustomerLike")
+    public String findCustomerLike(@RequestBody CustomerLikeVo customerLikeVo){
+
+        Result result = customerService.findByLikeVo(customerLikeVo);
+        return JsonUtil.objectToJsonString(result);
+
+    }
+    @PostMapping("/findCustomerLikeCount")
+    public String findCustomerLikeCount(@RequestBody CustomerLikeVo customerLikeVo){
+
+        Result result = customerService.findCustomerLikeCount(customerLikeVo);
         return JsonUtil.objectToJsonString(result);
 
     }
