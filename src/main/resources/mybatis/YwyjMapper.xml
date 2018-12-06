@@ -121,15 +121,15 @@
                     when ID = #{item.id} then STATE
                 </if>
             </foreach>
-            <foreach collection="list" item="item" separator=" " open="DESC = case" close="else DESC end,">
-                <if test="item.desc!=null">
-                    when ID = #{item.id} then #{item.desc}
+            <foreach collection="list" item="item" separator=" " open="DESCP = case" close="else DESCP end,">
+                <if test="item.descp!=null">
+                    when ID = #{item.id} then #{item.descp}
                 </if>
-                <if test="item.desc==null">
-                    when ID = #{item.id} then DESC
+                <if test="item.descp==null">
+                    when ID = #{item.id} then DESCP
                 </if>
             </foreach>
-            <foreach collection="list" item="item" separator=" " open="VERSION = case" close="else VERION end,">
+            <foreach collection="list" item="item" separator=" " open="VERSION = case" close="else VERSION end,">
                 when ID = #{item.id} then VERSION+1
             </foreach>
 
@@ -141,6 +141,11 @@
     <select id="selectByCustomerId" parameterType="string" resultType="ywyj">
 
         select * from BD_YWYJ where CUSTOMERID=#{value}
+
+    </select>
+    <select id="selectByIdAndVersion" parameterType="map" resultType="ywyj">
+
+        select * from BD_YWYJ where ID=#{id} and VERSION=#{version}
 
     </select>
 

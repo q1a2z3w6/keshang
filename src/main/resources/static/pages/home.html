@@ -206,6 +206,17 @@
         buildJson(f,yw);
         f = $("#tabledata input[name=descp]");
         buildJson(f,yw);
+        f = $("#tabledata input[name=ywyj_id]");
+        buildJson(f,yw);
+        f = $("#tabledata input[name=ywyj_version]");
+        buildJson(f,yw);
+
+        for(var i=0;i<yw.length;i++){
+
+            yw[i]["id"] = yw[i]["ywyj_id"];
+            yw[i]["version"] = yw[i]["ywyj_version"];
+
+        }
 
 
         var msg = localStorage.getItem('datalist');
@@ -499,7 +510,7 @@
             '  </thead>' +
             '   <tbody id="tabledata">' +
             '  <tr>' +
-            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="itemName" class="layui-input"><input type="hidden" name="ywyj_id" /><input type="hidden" name="ywyj_version" /></td>' +
             '   <td><input type="text" name="business" class="layui-input"></td>' +
             '   <td><input type="text" name="content" class="layui-input"></td>' +
             '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
@@ -513,7 +524,7 @@
 
             '    </tr>' +
             '    <tr>' +
-            '   <td><input type="text" name="itemName" class="layui-input"></td>' +
+            '   <td><input type="text" name="itemName" class="layui-input"><input type="hidden" name="ywyj_id" /><input type="hidden" name="ywyj_version" /></td>' +
             '   <td><input type="text" name="business" class="layui-input"></td>' +
             '   <td><input type="text" name="content" class="layui-input"></td>' +
             '   <td><input type="text" name="buildArea" class="layui-input"></td>' +
@@ -567,15 +578,15 @@
             '                <p>附件清单</p>' +
             '                <p style="margin:10px 0;">请上传正确的文件格式</p>' +
             '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>执照上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>资格证书上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>安全生产许可证上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>其他资质上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile2"><i class="layui-icon">&#xe67c;</i>资格证书上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile3"><i class="layui-icon">&#xe67c;</i>安全生产许可证上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile4"><i class="layui-icon">&#xe67c;</i>其他资质上传</button></div>' +
             '            </div>' +
-
-
+            '           <input type="hidden" id="id"/>' +
+            '           <input type="hidden" id="version"/>' +
             '        </div>' +
             '        <div class="textcenter">' +
-            '            <button class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
+            '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg('+idx+')">保存</button>' +
             '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
             '        </div>' +
             '    </form></div>';
@@ -648,6 +659,8 @@
                         var money = $("#tabledata input[name=money]");
                         var state = $("#tabledata select[name=state]");
                         var descp = $("#tabledata input[name=descp]");
+                        var ywyj_id = $("#tabledata input[name=ywyj_id]");
+                        var ywyj_version = $("#tabledata input[name=ywyj_version]");
                         for(var i=0;i<arr.length;i++){
 
                             $(itemName[i]).val(arr[i]["itemName"]);
@@ -657,6 +670,8 @@
                             $(money[i]).val(arr[i]["money"]);
                             $(state[i]).val(arr[i]["state"]);
                             $(descp[i]).val(arr[i]["descp"]);
+                            $(ywyj_id[i]).val(arr[i]["id"]);
+                            $(ywyj_version[i]).val(arr[i]["version"]);
 
                         }
 
@@ -1946,15 +1961,15 @@
             '                <p>附件清单</p>' +
             '                <p style="margin:10px 0;">请上传正确的文件格式</p>' +
             '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>执照上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>资格证书上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>安全生产许可证上传</button></div>' +
-            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile1"><i class="layui-icon">&#xe67c;</i>其他资质上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile2"><i class="layui-icon">&#xe67c;</i>资格证书上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile3"><i class="layui-icon">&#xe67c;</i>安全生产许可证上传</button></div>' +
+            '                <div style="float:left;margin-right:10px;"><button type="button" class="layui-btn" id="upfile4"><i class="layui-icon">&#xe67c;</i>其他资质上传</button></div>' +
             '            </div>' +
 
 
             '        </div>' +
             '        <div class="textcenter">' +
-            '            <button class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
+            '            <button id="startupfile" class="layui-btn" type="button" onclick="getmsg()">保存</button>' +
             '            <button class="layui-btn canclemodel" type="button" onclick="cancleall()">取消</button>' +
             '        </div>' +
             '    </form></div>';
@@ -2081,19 +2096,19 @@
 
             jsonCul = {};
             if($("#searchfl").val().trim().length!=0){
-                data["type"]=$("#searchfl").val().trim();
+                jsonCul["type"]="%"+$("#searchfl").val().trim()+"%";
             }
             if($("#searchname").val().trim().length!=0){
-                data["name"]=$("#searchname").val().trim();
+                jsonCul["name"]="%"+$("#searchname").val().trim()+"%";
             }
             if($("#searchtel").val().trim().length!=0){
-                data["tel"]=$("#searchtel").val().trim();
+                jsonCul["tel"]="%"+$("#searchtel").val().trim()+"%";
             }
             if($("#searchlinkman").val().trim().length!=0){
-                data["linkman"]=$("#searchlinkman").val().trim();
+                jsonCul["linkman"]="%"+$("#searchlinkman").val().trim()+"%";
             }
-            data["size"]=20;
-            data["pageNum"]=1;
+            jsonCul["size"]=20;
+            jsonCul["pageNum"]=1;
 
             iniLaypage(JSON.stringify(jsonCul));
 
@@ -2368,13 +2383,68 @@
         // $.fn.zTree.init($("#treeDemo1"), settingtype, zNodes);
         inizTree("/diodeList",$("#treeDemo"),setting,zyzz);
         inizTree("/typeList",$("#treeDemo1"),settingtype,zNodes);
+
         fileUploadInit('#upfile1',
-            '#startupfile',
             '/uploadHome',
-            {"path":"test/test1"},
+            function(data){
+                var type = $("#type").val();
+                type = type.replace(new RegExp(">","g"),"/") +"/"+$("#name").val()+"/执照";
+                this.data={"path":type};
+
+            },
             function(res){
                 console.log(res);
-            });
+            },true);
+        fileUploadInit('#upfile2',
+            // '#startupfile',
+            '/uploadHome',
+            function(data){
+                var type = $("#type").val();
+                type = type.replace(new RegExp(">","g"),"/") +"/"+$("#name").val()+"/资格证书";
+                this.data={"path":type};
+
+            },
+            function(res){
+                console.log(res);
+            },true);
+        fileUploadInit('#upfile3',
+            // '#startupfile',
+            '/uploadHome',
+            function(data){
+                var type = $("#type").val();
+                type = type.replace(new RegExp(">","g"),"/") +"/"+$("#name").val()+"/安全生产许可证";
+                this.data={"path":type};
+
+            },
+            function(res){
+                console.log(res);
+            },true);
+        fileUploadInit('#upfile4',
+            // '#startupfile',
+            '/uploadHome',
+            function(data){
+                var type = $("#type").val();
+                type = type.replace(new RegExp(">","g"),"/") +"/"+$("#name").val()+"/其他资质";
+                this.data={"path":type};
+
+            },
+            function(res){
+                console.log(res);
+            },true);
+        // fileUploadInit('#upfile3',
+        //     '#startupfile',
+        //     '/uploadHome',
+        //     {"path":"test/test1"},
+        //     function(res){
+        //         console.log(res);
+        //     });
+        // fileUploadInit('#upfile4',
+        //     '#startupfile',
+        //     '/uploadHome',
+        //     {"path":"test/test1"},
+        //     function(res){
+        //         console.log(res);
+        //     });
         if(arr!=undefined){
 
             iniSelectNode(moneyTypeUrl,$("#moneyTypeList"),function(d){
@@ -2449,7 +2519,7 @@
      * @param dataData 服务端保存相对路径
      * @param fun 执行后的回调函数
      */
-    function fileUploadInit(elemData,bindActionData,urlData,dataData,fun){
+    function fileUploadInit(elemData,urlData,beforeFun,fun,auto,bindActionData){
 
         //文件上传
         layui.use('upload', function() {
@@ -2460,8 +2530,8 @@
             upload.render({
                 elem: elemData
                 ,url: urlData
-                ,data:dataData
-                ,auto: false
+                ,before:beforeFun
+                ,auto: auto
                 ,multiple: true,
                 accept: 'file'
                 ,bindAction: bindActionData

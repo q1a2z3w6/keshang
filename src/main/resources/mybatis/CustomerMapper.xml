@@ -354,6 +354,8 @@
         where ID=#{id}
     </update>
 
+
+
     <select id="findCustomerByVo" parameterType="customerSelectVo" resultType="customer">
 
 
@@ -367,7 +369,7 @@
                     and ID=#{id}
                 </if>
                 <if test="name!=null">
-                    and NAME=#{name}
+                    and NAME like #{name}
                 </if>
                 <if test="money!=null">
                     and MONEY=#{money}
@@ -397,7 +399,7 @@
                     and NSTYPE=#{nstype}
                 </if>
                 <if test="type!=null">
-                    and TYPE=#{type}
+                    and TYPE like #{type}
                 </if>
                 <if test="zyzdate!=null">
                     and ZYZDATE=#{zyzdate}
@@ -451,13 +453,13 @@
                     and WXIE=#{wxie}
                 </if>
                 <if test="linkman!=null">
-                    and LINKMAN=#{linkman}
+                    and LINKMAN like #{linkman}
                 </if>
                 <if test="phone!=null">
                     and PHONE=#{phone}
                 </if>
                 <if test="tel!=null">
-                    and TEL=#{tel}
+                    and TEL like #{tel}
                 </if>
                 <if test="email!=null">
                     and EMAIL=#{email}

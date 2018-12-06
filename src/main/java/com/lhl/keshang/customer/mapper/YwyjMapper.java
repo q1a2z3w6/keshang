@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应用模块名称<p>
@@ -22,5 +23,6 @@ public interface YwyjMapper {
     void saveYwyjList(List list);
     void updateYwyjList(List list);
     List<Ywyj> selectByCustomerId(String customerId);
+    List<Ywyj> selectByIdAndVersion(Map<String,Object> map);
 
 }

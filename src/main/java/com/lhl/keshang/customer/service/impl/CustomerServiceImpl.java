@@ -13,6 +13,7 @@ import com.lhl.keshang.pub.utils.ResultUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,6 +84,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Result validateCustomer(Customer customer){
 
+        List<YwyjVo> ywyj = customer.getYwyj();
+        if(ywyj!=null&&ywyj.size()!=0){
+            for(YwyjVo y:ywyj){
+
+                if(y.getItemName()!=null&&y.getItemName().trim().length()!=0){
+                    List<Ywyj> ywyjs = customerDao.selectByIdAndVersion(y.getId(), y.getVersion());
+                    if(ywyjs==null||ywyjs.size()==0){
+                        return ResultUtil.error(500,"信息已经改变，请刷新后再试");
+                    }
+                }
+
+            }
+        }
         customer = customerDao.findCustomerByIdAndVersion(customer);
         if(customer==null){
             return ResultUtil.error(500,"信息已经改变，请刷新后再试");
@@ -93,14 +107,28 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Result updateCustomer(Customer customer) {
         Result result = validateCustomer(customer);
         if(result.getCode()!=200){
             return result;
         }
+
         customer.setVersion(customer.getVersion()+1);
         customer.setUpdateDate(new Date());
         customerDao.updateCustomerById(customer);
+        List<YwyjVo> ywyj = customer.getYwyj();
+        if(ywyj!=null&&ywyj.size()!=0){
+            ArrayList<YwyjVo> ywyjVos = new ArrayList<>();
+            for(YwyjVo y:ywyj){
+
+                if(y.getItemName()!=null&&y.getItemName().trim().length()!=0){
+                    ywyjVos.add(y);
+                }
+
+            }
+            customerDao.updateYwyj(ywyjVos);
+        }
         return ResultUtil.success(customer);
     }
 

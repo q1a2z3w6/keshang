@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 应用模块名称<p>
@@ -106,8 +107,9 @@ public class CustomerUpdateVo {
     private String after;
     @NotBlank(message = "{customer.field.null}")
     private String wxie;
-    @NotBlank(message = "{customer.field.null}")
-    private String ywyj;
+
+    private List<YwyjVo> ywyj;
+
     @NotBlank(message = "{customer.field.null}")
     private String linkman;
     @NotBlank(message = "{customer.field.null}")

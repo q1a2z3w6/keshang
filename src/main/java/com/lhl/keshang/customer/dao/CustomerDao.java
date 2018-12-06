@@ -36,4 +36,5 @@ public interface CustomerDao {
 
     List<Ywyj> selectByCustomerId(String customerId);
 
+    List<Ywyj> selectByIdAndVersion(String id, Long version);
 }

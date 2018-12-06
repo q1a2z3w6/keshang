@@ -11,7 +11,9 @@ import com.lhl.keshang.filemanager.pojo.CustomerExcelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应用模块名称<p>
@@ -97,4 +99,17 @@ public class CustomerDaoImpl implements CustomerDao {
         return ywyjs;
 
     }
+    @Override
+    public List<Ywyj> selectByIdAndVersion(String id, Long version){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("version",version);
+
+        List<Ywyj> ywyjs = ywyjMapper.selectByIdAndVersion(map);
+
+        return ywyjs;
+
+    }
+
 }
